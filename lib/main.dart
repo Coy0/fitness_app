@@ -129,7 +129,7 @@ class TestLogin extends StatelessWidget {
             
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage('https://avatars.githubusercontent.com/u/113906305?v=4'),
+                image: NetworkImage('https://avatars.githubusercontent.com/u/113906305?v=4'), // Test Img
                 fit: BoxFit.cover,
 
               ),
@@ -141,18 +141,35 @@ class TestLogin extends StatelessWidget {
           ),
           
           SizedBox(height: 20),
+
           Container(
             width: 200,
             height: 200,
               decoration: BoxDecoration(
-              
                 border: Border.all(
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(12),
             ),
+
+            child: Center(
+              child: Container(
+                width: 150,
+                height: 150,
+              decoration: BoxDecoration(
+                border: Border.all(
+                width: 1,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+
           ),
+          
+
           SizedBox(height: 10),
+
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
