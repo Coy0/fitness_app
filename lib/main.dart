@@ -133,8 +133,9 @@ class TestLogin extends StatelessWidget {
                 fit: BoxFit.cover,
 
               ),
+              borderRadius: BorderRadius.circular(200),
               border: Border.all(
-                width: 0.001,
+                width: 1000,
                 )
             )
           ),
