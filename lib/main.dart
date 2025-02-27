@@ -2,7 +2,6 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -34,7 +33,6 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
-
 
   void toggleFavorite() {
     if (favorites.contains(current)) {
@@ -115,13 +113,26 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class TestLogin extends StatelessWidget {
+class TestLogin extends StatefulWidget {
   @override
+  _TestLoginState createState() => _TestLoginState();
+}
+
+class _TestLoginState extends State<TestLogin> { 
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  String _username = '';
+  String _password = '';
+
+  @override
+
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [          
+        children: [
           Container(
               // App Logo
               width: 75,
@@ -162,10 +173,10 @@ class TestLogin extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  
-                  const Padding(padding: EdgeInsets.symmetric(horizontal: 25, vertical:  16),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 16),
                     child: TextField(
+                      controller: _usernameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Enter your username',
@@ -173,10 +184,12 @@ class TestLogin extends StatelessWidget {
                     ),
                   ),
                   // Username
-                  
 
-                  Padding(padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 16),
                     child: TextField(
+                      controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -187,13 +200,36 @@ class TestLogin extends StatelessWidget {
                   // Password
 
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        _username = _usernameController.text;
+                        _password = _passwordController.text;
+                      });
+                    },
                     child: Text('Sign in'),
                   ),
                 ],
               ),
             ),
           ),
+          
+          SizedBox(height: 20),
+          Container(
+            width: 350,
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              children: [
+                Text('Username: $_username'),
+                Text('Password: $_password'),
+              ],
+            ),
+          )
         ],
       ),
     );
