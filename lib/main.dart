@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Namer App',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 199, 115, 119)),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 199, 115, 119)),
         ),
         home: MyHomePage(),
       ),
@@ -59,13 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (selectedIndex) {
       case 0:
         page = TestLogin();
-        
+
       case 1:
         page = HomePage();
-     
+
       case 2:
         page = FavoritesPage();
-        
+
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -115,77 +116,88 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class TestLogin extends StatelessWidget {
-    @override
-
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          
+        children: [          
           Container(
-            width: 150,
-            height: 150,
-            
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage('https://avatars.githubusercontent.com/u/113906305?v=4'), // Test Img
-                fit: BoxFit.cover,
+              // App Logo
+              width: 75,
+              height: 75,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        'https://avatars.githubusercontent.com/u/113906305?v=4'), // Test Img
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(200),
+                  border: Border.all(
+                    width: 1000,
+                  ))),
+          // App Logo
 
-              ),
-              borderRadius: BorderRadius.circular(200),
-              border: Border.all(
-                width: 1000,
-                )
-            )
+          SizedBox(height: 20),
+
+          Text(
+            'Sign in to [App_Name]',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
           ),
-          
+
           SizedBox(height: 20),
 
           Container(
-            width: 200,
-            height: 200,
-              decoration: BoxDecoration(
-                border: Border.all(
+            width: 350,
+            height: 230,
+            decoration: BoxDecoration(
+              border: Border.all(
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(12),
             ),
+            // Main Outside Box
 
             child: Center(
-              child: Container(
-                width: 150,
-                height: 150,
-              decoration: BoxDecoration(
-                border: Border.all(
-                width: 1,
-                ),
-                borderRadius: BorderRadius.circular(12),
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+
+                  
+                  const Padding(padding: EdgeInsets.symmetric(horizontal: 25, vertical:  16),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Enter your username',
+                      ),
+                    ),
+                  ),
+                  // Username
+                  
+
+                  Padding(padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 16),
+                    child: TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Enter your password',
+                      ),
+                    ),
+                  ),
+                  // Password
+
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Sign in'),
+                  ),
+                ],
               ),
             ),
-
-          ),
-          
-
-          SizedBox(height: 10),
-
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton(
-                onPressed: (
-                  
-                ) {
-                },
-                child: Text('Test Button'),
-              ),
-            ],
           ),
         ],
       ),
     );
-  } 
+  }
 }
 
 class HomePage extends StatelessWidget {
@@ -197,7 +209,7 @@ class HomePage extends StatelessWidget {
     IconData icon;
     if (appState.favorites.contains(pair)) {
       icon = Icons.favorite;
-    } else if (appState.favorites.contains(pair)){
+    } else if (appState.favorites.contains(pair)) {
       icon = Icons.login_outlined;
     } else {
       icon = Icons.favorite_border;
