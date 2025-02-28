@@ -65,6 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         page = FavoritesPage();
 
+      case 3:
+        page = TestMusic();
+
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -89,6 +92,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     NavigationRailDestination(
                       icon: Icon(Icons.favorite),
                       label: Text('Favorites'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.music_note),
+                      label: Text('Music'),
                     )
                   ],
                   selectedIndex: selectedIndex,
@@ -118,8 +125,7 @@ class TestLogin extends StatefulWidget {
   _TestLoginState createState() => _TestLoginState();
 }
 
-class _TestLoginState extends State<TestLogin> { 
-
+class _TestLoginState extends State<TestLogin> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -127,7 +133,6 @@ class _TestLoginState extends State<TestLogin> {
   String _password = '';
 
   @override
-
   Widget build(BuildContext context) {
     return Center(
       child: Column(
@@ -212,7 +217,7 @@ class _TestLoginState extends State<TestLogin> {
               ),
             ),
           ),
-          
+
           SizedBox(height: 20),
           Container(
             width: 350,
@@ -334,3 +339,57 @@ class FavoritesPage extends StatelessWidget {
     );
   }
 }
+
+class TestMusic extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+
+          SizedBox(height: 20),
+
+          Container(
+            width: 230,
+            height: 50,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            // Main Outside Box
+
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Music Player',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          SizedBox(height: 20),
+
+          ListTile(
+            leading: Icon(Icons.music_note),
+            title: Text('Song 1'),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 16),
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text('Play'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
