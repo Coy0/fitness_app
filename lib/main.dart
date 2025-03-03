@@ -2,7 +2,7 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() { // Main Function
   runApp(MyApp());
 }
 
@@ -17,7 +17,10 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 199, 115, 119)),
+              seedColor: const Color.fromARGB(255, 199, 115, 119)), // Seed Color
+          primaryColor: const Color.fromARGB(255, 199, 115, 119), // Primary Color
+          primaryColorLight: const Color.fromARGB(255, 199, 115, 119), // Primary Light Color
+          primaryColorDark: const Color.fromARGB(255, 20, 20, 20), // Primary Dark Color
         ),
         home: MyHomePage(),
       ),
