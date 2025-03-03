@@ -145,7 +145,7 @@ class _TestLoginState extends State<TestLogin> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(
-                        'https://avatars.githubusercontent.com/u/113906305?v=4'), // Test Img
+                        'https://lh3.googleusercontent.com/a/AAcHTte9-uacFwE0x1rKXfsWlhp9ePVSORbZblEPIAbz7V9P6PI=s96-c'), // Test Img
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(200),
@@ -383,7 +383,9 @@ class TestMusic extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 16),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                
+              },
               child: Text('Play'),
             ),
           ),
