@@ -4,6 +4,8 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
+import 'package:first_mobile_app_test1/main_application/login.dart';
 void main() { // Main Function
   runApp(MyApp());
 }
@@ -121,135 +123,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       },
-    );
-  }
-}
-
-class TestLogin extends StatefulWidget {
-  @override
-  _TestLoginState createState() => _TestLoginState();
-}
-
-class _TestLoginState extends State<TestLogin> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  String _username = '';
-  String _password = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-              // App Logo
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        'https://lh3.googleusercontent.com/a/AAcHTte9-uacFwE0x1rKXfsWlhp9ePVSORbZblEPIAbz7V9P6PI=s96-c'), // Test Img
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(200),
-                  border: Border.all(
-                    width: 1000,
-                  ))),
-          // App Logo
-
-          SizedBox(height: 20),
-
-          Text(
-            'Sign in to [App_Name]',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
-          ),
-
-          SizedBox(height: 20),
-
-          Container(
-            width: 350,
-            height: 230,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            // Main Outside Box
-
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 16),
-                    child: TextField(
-                      controller: _usernameController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Enter your username',
-                      ),
-                    ),
-                  ),
-                  // Username
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 16),
-                    child: TextField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                      /// COY EDITS ABOVE CODE
-                      /// AUSTIN EDITS BELOW CODE
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                        
-
-                        labelText: 'Enter your password',
-                      ),
-                    ),
-                  ),
-
-                  // Password adrgshfjk
-
-
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _username = _usernameController.text;
-                        _password = _passwordController.text;
-                      });
-                    },
-                    child: Text('Sign in'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          SizedBox(height: 20),
-          Container(
-            width: 350,
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                Text('Username: $_username'),
-                Text('Password: $_password'),
-              ],
-            ),
-          )
-        ],
-      ),
     );
   }
 }
