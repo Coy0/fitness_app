@@ -2,8 +2,19 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+<<<<<<< HEAD:lib/main_application/main.dart
+
+import 'package:first_mobile_app_test1/main_application/login.dart';
+import 'package:first_mobile_app_test1/main_application/music_player_test/music_test.dart';
+
+void main() {
+  
+runApp(MyApp());
+
+=======
 void main() { // Main Function
   runApp(MyApp());
+>>>>>>> 2d8671e8fd41e550746ed6b54a25431dc1b1996d:lib/main.dart
 }
 
 class MyApp extends StatelessWidget {
@@ -123,6 +134,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+<<<<<<< HEAD:lib/main_application/main.dart
+=======
 class TestLogin extends StatefulWidget {
   @override
   _TestLoginState createState() => _TestLoginState();
@@ -251,6 +264,7 @@ class _TestLoginState extends State<TestLogin> {
     );
   }
 }
+>>>>>>> 2d8671e8fd41e550746ed6b54a25431dc1b1996d:lib/main.dart
 
 class HomePage extends StatelessWidget {
   @override
@@ -351,58 +365,4 @@ class FavoritesPage extends StatelessWidget {
   }
 }
 
-class TestMusic extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-
-          SizedBox(height: 20),
-
-          Container(
-            width: 230,
-            height: 50,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            // Main Outside Box
-
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Music Player',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          SizedBox(height: 20),
-
-          ListTile(
-            leading: Icon(Icons.music_note),
-            title: Text('Song 1'),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 16),
-            child: ElevatedButton(
-              onPressed: () {
-                
-              },
-              child: Text('Play'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
