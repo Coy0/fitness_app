@@ -1,13 +1,9 @@
 import 'package:english_words/english_words.dart';
-// import 'package:first_mobile_app_test1/Database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-
-// databaseTest();
-runApp(MyApp());
-
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -126,7 +122,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class TestLogin extends StatefulWidget {
   @override
-  // ignore: library_private_types_in_public_api
   _TestLoginState createState() => _TestLoginState();
 }
 
@@ -203,6 +198,12 @@ class _TestLoginState extends State<TestLogin> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                      /// COY EDITS ABOVE CODE
+                      /// AUSTIN EDITS BELOW CODE
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////                        
+
                         labelText: 'Enter your password',
                       ),
                     ),
