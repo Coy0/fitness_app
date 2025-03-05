@@ -1,11 +1,13 @@
 import 'package:english_words/english_words.dart';
-// import 'package:first_mobile_app_test1/Database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
 
-// databaseTest();
+import 'package:first_mobile_app_test1/main_application/login.dart';
+import 'package:first_mobile_app_test1/main_application/music_player_test/music_test.dart';
+
+void main() {
+  
 runApp(MyApp());
 
 }
@@ -124,127 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class TestLogin extends StatefulWidget {
-  @override
-  // ignore: library_private_types_in_public_api
-  _TestLoginState createState() => _TestLoginState();
-}
-
-class _TestLoginState extends State<TestLogin> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  String _username = '';
-  String _password = '';
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-              // App Logo
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                        'https://lh3.googleusercontent.com/a/AAcHTte9-uacFwE0x1rKXfsWlhp9ePVSORbZblEPIAbz7V9P6PI=s96-c'), // Test Img
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(200),
-                  border: Border.all(
-                    width: 1000,
-                  ))),
-          // App Logo
-
-          SizedBox(height: 20),
-
-          Text(
-            'Sign in to [App_Name]',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
-          ),
-
-          SizedBox(height: 20),
-
-          Container(
-            width: 350,
-            height: 230,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            // Main Outside Box
-
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 16),
-                    child: TextField(
-                      controller: _usernameController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Enter your username',
-                      ),
-                    ),
-                  ),
-                  // Username
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 16),
-                    child: TextField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Enter your password',
-                      ),
-                    ),
-                  ),
-                  // Password
-
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _username = _usernameController.text;
-                        _password = _passwordController.text;
-                      });
-                    },
-                    child: Text('Sign in'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          SizedBox(height: 20),
-          Container(
-            width: 350,
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                Text('Username: $_username'),
-                Text('Password: $_password'),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
 
 class HomePage extends StatelessWidget {
   @override
@@ -345,58 +226,4 @@ class FavoritesPage extends StatelessWidget {
   }
 }
 
-class TestMusic extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-
-          SizedBox(height: 20),
-
-          Container(
-            width: 230,
-            height: 50,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            // Main Outside Box
-
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Music Player',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          SizedBox(height: 20),
-
-          ListTile(
-            leading: Icon(Icons.music_note),
-            title: Text('Song 1'),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 16),
-            child: ElevatedButton(
-              onPressed: () {
-                
-              },
-              child: Text('Play'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
