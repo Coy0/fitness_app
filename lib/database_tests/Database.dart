@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:first_mobile_app_test1/Dog.dart';
+import 'package:first_mobile_app_test1/database_tests/Dog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
