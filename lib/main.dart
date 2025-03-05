@@ -1,11 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:first_mobile_app_test1/main_application/login.dart';
-import 'package:first_mobile_app_test1/main_application/music_player_test/music_test.dart';
 
-void main() {
+import 'package:first_mobile_app_test1/main_application/login.dart';
+void main() { // Main Function
   runApp(MyApp());
 }
 
@@ -20,14 +21,10 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor:
-                  const Color.fromARGB(255, 199, 115, 119)), // Seed Color
-          primaryColor:
-              const Color.fromARGB(255, 199, 115, 119), // Primary Color
-          primaryColorLight:
-              const Color.fromARGB(255, 199, 115, 119), // Primary Light Color
-          primaryColorDark:
-              const Color.fromARGB(255, 20, 20, 20), // Primary Dark Color
+              seedColor: const Color.fromARGB(255, 199, 115, 119)), // Seed Color
+          primaryColor: const Color.fromARGB(255, 199, 115, 119), // Primary Color
+          primaryColorLight: const Color.fromARGB(255, 199, 115, 119), // Primary Light Color
+          primaryColorDark: const Color.fromARGB(255, 20, 20, 20), // Primary Dark Color
         ),
         home: MyHomePage(),
       ),
@@ -228,3 +225,59 @@ class FavoritesPage extends StatelessWidget {
     );
   }
 }
+
+class TestMusic extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+
+          SizedBox(height: 20),
+
+          Container(
+            width: 230,
+            height: 50,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            // Main Outside Box
+
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Music Player',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          SizedBox(height: 20),
+
+          ListTile(
+            leading: Icon(Icons.music_note),
+            title: Text('Song 1'),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 16),
+            child: ElevatedButton(
+              onPressed: () {
+                
+              },
+              child: Text('Play'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
