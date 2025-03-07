@@ -26,7 +26,7 @@ class _TestLoginState extends State<TestLogin> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
-                        'image_assets/cat_wawa.jpg'), // Test Img
+                        'assets/cat_wawa.jpg'), // Test Img
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(200),
