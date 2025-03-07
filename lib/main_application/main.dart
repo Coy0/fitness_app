@@ -1,4 +1,5 @@
 import 'package:english_words/english_words.dart';
+import 'package:first_mobile_app_test1/main_application/firstpage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -86,6 +87,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 4:
         page = VideoPlayerTest();
 
+      case 5: 
+        page = FirstPage();
+
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -118,7 +122,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     NavigationRailDestination(
                       icon: Icon(Icons.play_arrow),
                       label: Text('Video'),
-                    )
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.zoom_out_map), 
+                      label: Text('Opening page'))
                   ],
                   selectedIndex: selectedIndex,
                   onDestinationSelected: (value) {
