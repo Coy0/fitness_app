@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:first_mobile_app_test1/main_application/login.dart';
+import 'package:first_mobile_app_test1/main_application/firstpage.dart';
 import 'package:first_mobile_app_test1/main_application/music_player_test/music_test.dart';
 
 void main() {
@@ -78,6 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 3:
         page = TestMusic();
 
+      case 4:
+        page = FirstPage();
+
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -106,7 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     NavigationRailDestination(
                       icon: Icon(Icons.music_note),
                       label: Text('Music'),
-                    )
+                    ),
+                    NavigationRailDestination(
+                        icon: Icon(Icons.alarm), label: Text('First Page'))
                   ],
                   selectedIndex: selectedIndex,
                   onDestinationSelected: (value) {
@@ -228,3 +234,6 @@ class FavoritesPage extends StatelessWidget {
     );
   }
 }
+
+
+
