@@ -180,7 +180,7 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           BigCard(pair: pair),
-          SizedBox(height: 10),
+          SizedBox(height: 10), // Spacing
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -191,7 +191,7 @@ class HomePage extends StatelessWidget {
                 icon: Icon(icon),
                 label: Text('Like'),
               ),
-              SizedBox(width: 10),
+              SizedBox(width: 10), // Spacing
               ElevatedButton( // This is the button that allows you to get the next word pair
                 onPressed: () {
                   appState.getNext();
@@ -226,7 +226,7 @@ class BigCard extends StatelessWidget {
         child: Text(
           pair.asLowerCase,
           style: style,
-          semanticsLabel: "${pair.first} ${pair.second}",
+          semanticsLabel: "${pair.first} ${pair.second}", 
         ),
       ),
     );
