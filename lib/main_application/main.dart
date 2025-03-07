@@ -222,7 +222,7 @@ class BigCard extends StatelessWidget {
     return Card(
       color: theme.colorScheme.primary,
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20), // Defines the size of the box in which the text is located in
         child: Text(
           pair.asLowerCase,
           style: style,

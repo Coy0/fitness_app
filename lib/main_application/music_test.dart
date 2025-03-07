@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+
+/// This is a music player page created by Coy to see how to make a music player function
+/// 
+/// Unfinished
 class TestMusic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

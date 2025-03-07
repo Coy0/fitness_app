@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+
+/// This is a video player page created by Coy to see how to add a video player to the app
+/// 
+/// Unfinished
 class VideoPlayerTest extends StatelessWidget {
   @override
 
