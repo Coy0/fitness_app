@@ -55,10 +55,6 @@ class MyAppState extends ChangeNotifier {
   }
 }
 
-
-/// hello :3
-
-
 class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -70,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     Widget page;
-    switch (selectedIndex) {
+    switch (selectedIndex) { // The method that changes the page to the correct one
       case 0:
         page = TestLogin();
 
@@ -90,6 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
+    /// This is the method that creates the bar on the left side of the screen which allows you to navigate between pages
+    /// as well as the method that holds the icons and labels for the pages
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
@@ -103,22 +101,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       icon: Icon(Icons.login),
                       label: Text('Login'),
                     ),
+
                     NavigationRailDestination(
                       icon: Icon(Icons.home),
                       label: Text('Home'),
                     ),
+
                     NavigationRailDestination(
                       icon: Icon(Icons.favorite),
                       label: Text('Favorites'),
                     ),
+
                     NavigationRailDestination(
                       icon: Icon(Icons.music_note),
                       label: Text('Music'),
                     ),
+
                     NavigationRailDestination(
                       icon: Icon(Icons.play_arrow),
                       label: Text('Video'),
                     )
+
                   ],
                   selectedIndex: selectedIndex,
                   onDestinationSelected: (value) {
