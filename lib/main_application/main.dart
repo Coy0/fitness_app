@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:first_mobile_app_test1/main_application/login.dart';
-import 'package:first_mobile_app_test1/main_application/music_player_test/music_test.dart';
+import 'package:first_mobile_app_test1/main_application/music_test.dart';
+import 'package:first_mobile_app_test1/main_application/video_player_test.dart';
 
 void main() {
   runApp(MyApp());
@@ -78,6 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 3:
         page = TestMusic();
 
+      case 4:
+        page = VideoPlayerTest();
+
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -106,6 +110,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     NavigationRailDestination(
                       icon: Icon(Icons.music_note),
                       label: Text('Music'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.play_arrow),
+                      label: Text('Video'),
                     )
                   ],
                   selectedIndex: selectedIndex,
