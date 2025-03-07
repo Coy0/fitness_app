@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-class Dog {
+class Dog { /// This is a test databse that stores dogs as given by the program
   final int id;
   final String name;
   final int age;
@@ -19,4 +19,4 @@ class Dog {
   String toString() {
     return 'Account{id: $id, name: $name, age: $age}';
   }
-}
+} 
