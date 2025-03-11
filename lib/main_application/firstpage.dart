@@ -12,7 +12,7 @@ class FirstPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20), 
           child: Text(
-            'You have '
+            "what the sus"
           
           ),
         ),
