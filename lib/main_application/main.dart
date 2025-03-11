@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:first_mobile_app_test1/main_application/login.dart';
-import 'package:first_mobile_app_test1/main_application/music_test.dart';
-import 'package:first_mobile_app_test1/main_application/video_player_test.dart';
 
 /// This is the main method that runs the application on run
 void main() {
@@ -78,22 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
         page = TestLogin();
 
       case 1:
-        page = HomePage();
-
-      case 2:
         page = FavoritesPage();
 
-      case 3:
-        page = TestMusic();
-
-      case 4:
-        page = VideoPlayerTest();
-
-      case 5: 
+      case 2: 
         page = FirstPage();
 
       default:
-        throw UnimplementedError('no widget for $selectedIndex');
+        throw UnimplementedError('$selectedIndex is not implemented');
     }
 
     /// This is the method that creates the bar on the left side of the screen which allows you to navigate between pages
@@ -113,23 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
 
                     NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text('Home'),
-                    ),
-
-                    NavigationRailDestination(
                       icon: Icon(Icons.favorite),
                       label: Text('Favorites'),
-                    ),
-
-                    NavigationRailDestination(
-                      icon: Icon(Icons.music_note),
-                      label: Text('Music'),
-                    ),
-
-                    NavigationRailDestination(
-                      icon: Icon(Icons.play_arrow),
-                      label: Text('Video'),
                     ),
 
                     NavigationRailDestination(
@@ -155,80 +129,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       },
-    );
-  }
-}
-
-/// This is the method that defines the "Home" page
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>(); // This defines the current state of the application
-    var pair = appState.current; // This is the word pair that is currently being displayed
-
-    IconData icon;
-    if (appState.favorites.contains(pair)) {
-      icon = Icons.favorite;
-    } else if (appState.favorites.contains(pair)) {
-      icon = Icons.login_outlined;
-    } else {
-      icon = Icons.favorite_border;
-    }
-
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigCard(pair: pair),
-          SizedBox(height: 10), // Spacing
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon( // This is the button that allows you to favorite a given word pair
-                onPressed: () {
-                  appState.toggleFavorite();
-                },
-                icon: Icon(icon),
-                label: Text('Like'),
-              ),
-              SizedBox(width: 10), // Spacing
-              ElevatedButton( // This is the button that allows you to get the next word pair
-                onPressed: () {
-                  appState.getNext();
-                },
-                child: Text('Next'),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// This is the method that defines the card that displays the word pairs inside of the "Home" page
-class BigCard extends StatelessWidget {
-  const BigCard({super.key, required this.pair});
-
-  final WordPair pair;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(20), // Defines the size of the box in which the text is located in
-        child: Text(
-          pair.asLowerCase,
-          style: style,
-          semanticsLabel: "${pair.first} ${pair.second}", 
-        ),
-      ),
     );
   }
 }
