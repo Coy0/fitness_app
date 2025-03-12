@@ -2,21 +2,22 @@
 
 import 'dart:async';
 
-import 'package:first_mobile_app_test1/database_tests/Dog.dart';
+import 'package:first_mobile_app_test1/database_tests/Account.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-void main() {
-// Initialize FFI
-sqfliteFfiInit();
+Future<void> main() async {
+  // Initialize FFI
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
 
-
- databaseFactory = databaseFactoryFfi;
-  databaseTest();
+  WidgetsFlutterBinding.ensureInitialized();
   
- // test
+  await databaseTest(); // Ensure database setup completes before proceeding
 }
-void databaseTest() async {
+
+
+Future<void> databaseTest() async {
     var databasesPath = await getDatabasesPath();
 print(getDatabasesPath());
   // Avoid errors caused by flutter upgrade.
@@ -32,7 +33,7 @@ print(getDatabasesPath());
     onCreate: (db, version) {
       // Run the CREATE TABLE statement on the database.
       return db.execute(
-        'CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)',
+        'CREATE TABLE accounts(id INTEGER PRIMARY KEY, email TEXT, username TEXT, password TEXT)',
       );
     },
     // Set the version. This executes the onCreate function and provides a
@@ -41,7 +42,7 @@ print(getDatabasesPath());
   );
 
   // Define a function that inserts dogs into the database
-  Future<void> insertDog(Dog dog) async {
+  Future<void> insertAccount(Account account) async {
     // Get a reference to the database.
     final db = await database;
 
@@ -50,50 +51,56 @@ print(getDatabasesPath());
     //
     // In this case, replace any previous data.
     await db.insert(
-      'dogs',
-      dog.toMap(),
+      'accounts',
+      account.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
   // A method that retrieves all the dogs from the dogs table.
-  Future<List<Dog>> dogs() async {
+  Future<List<Account>> accounts() async {
     // Get a reference to the database.
     final db = await database;
 
     // Query the table for all the dogs.
-    final List<Map<String, Object?>> dogMaps = await db.query('dogs');
+    final List<Map<String, Object?>> accountMaps = await db.query('accounts');
 
     // Convert the list of each dog's fields into a list of `Dog` objects.
-    return [
-      for (final {'id': id as int, 'name': name as String, 'age': age as int}
-          in dogMaps)
-        Dog(id: id, name: name, age: age),
-    ];
+
+    return accountMaps.map((map) => Account(
+      id: map['id'] as int,
+      email: map['email'] as String,
+      username: map['username'] as String,
+      password: map['password'] as String,
+    )).toList();
+      
+      // for (final {'id': id as int, 'email': email as String, 'username': username as String, 'password': password as String} in accountMaps)
+      
   }
 
-  Future<void> updateDog(Dog dog) async {
+
+  Future<void> updateAccount(Account account) async {
     // Get a reference to the database.
     final db = await database;
 
     // Update the given Dog.
     await db.update(
-      'dogs',
-      dog.toMap(),
+      'accounts',
+      account.toMap(),
       // Ensure that the Dog has a matching id.
       where: 'id = ?',
       // Pass the Dog's id as a whereArg to prevent SQL injection.
-      whereArgs: [dog.id],
+      whereArgs: [account.id],
     );
   }
 
-  Future<void> deleteDog(int id) async {
+  Future<void> deleteAccount(int id) async {
     // Get a reference to the database.
     final db = await database;
 
     // Remove the Dog from the database.
     await db.delete(
-      'dogs',
+      'accounts',
       // Use a `where` clause to delete a specific dog.
       where: 'id = ?',
       // Pass the Dog's id as a whereArg to prevent SQL injection.
@@ -102,23 +109,24 @@ print(getDatabasesPath());
   }
 
   // Create a Dog and add it to the dogs table
-  var fido = Dog(id: 0, name: 'Fido', age: 35);
+  var coy = Account(id: 0, email: 'ca0002@students.inghamisd.org', username: 'Coy', password: 'wawapassword');
+  var test = Account(id: 1, email: 'TESTEMAIL', username: 'username', password: 'password');
 
-  await insertDog(fido);
+  await insertAccount(coy);
+  await insertAccount(test);
 
-  // Now, use the method above to retrieve all the dogs.
-  print(await dogs()); // Prints a list that include Fido.
+  print(await accounts()); // Prints a list tha.
 
-  // Update Fido's age and save it to the database.
-  fido = Dog(id: fido.id, name: fido.name, age: fido.age + 7);
-  await updateDog(fido);
+  // Update Accounts's age and save it to the database.
+  coy = Account(id: coy.id, email: coy.email, username: coy.username, password: coy.password);
+  await updateAccount(coy);
+  test = Account(id: test.id, email: test.email, username: test.username, password: test.password);
+  await updateAccount(test);
 
   // Print the updated results.
-  print(await dogs()); // Prints Fido with age 42.
+  print(await accounts()); 
 
-  // Delete Fido from the database.
-  await deleteDog(fido.id);
+  await deleteAccount(test.id);
 
-  // Print the list of dogs (empty).
-  print(await dogs());
+  print(await accounts());
 }
