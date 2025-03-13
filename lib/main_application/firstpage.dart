@@ -7,17 +7,91 @@ class FirstPage extends StatelessWidget {
   Widget build(BuildContext context) {
     
 
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20), 
-          child: Text(
-            'You have '
-          
-          ),
-        ),
-        
-      ],
+    return Center(
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 75,
+              height: 75,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        'assets/cat_wawa.jpg'), 
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(200), 
+                  
+                )
+              ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            SizedBox(height: 20), 
+
+
+            Text('You have'),
+
+
+            SizedBox(height: 20),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                Container(
+                  width: 75,
+                  height: 75,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                            'assets/cat_wawa.jpg'), 
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(200), 
+                      
+                    )
+                  ),
+          ],
+      )
     );
   }
 }
