@@ -1,4 +1,3 @@
-import 'package:english_words/english_words.dart';
 import 'package:first_mobile_app_test1/main_application/firstpage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,12 +29,12 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 255, 255, 255), // Seed Color
-            surface: const Color.fromARGB(255, 255, 255, 255), // Background Color
+            seedColor: const Color.fromARGB(255, 0, 0, 0), // Light blue theme
+            surface: const Color.fromARGB(255, 255, 255, 255), // Very light blue for backgrounds
           ),
-          primaryColor: const Color.fromARGB(255, 255, 255, 255), // Primary Color
-          primaryColorLight: const Color.fromARGB(255, 255, 255, 255), // Primary Light Color
-          primaryColorDark: const Color.fromARGB(255, 20, 20, 20), // Primary Dark Color
+          primaryColor: const Color.fromARGB(255, 105, 111, 117), // Primary Color
+          primaryColorLight: const Color.fromARGB(255, 173, 216, 230), // Lighter blue
+          primaryColorDark: const Color.fromARGB(255, 20, 20, 20), // Dark Theme Color
         ),
         home: MyHomePage(),
       ),
@@ -74,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               SafeArea(
                 child: Container(
-                  color: Theme.of(context).colorScheme.surface, // Different color for NavigationRail
+                  color: Theme.of(context).colorScheme.surface, // Light blue NavigationRail
                   child: NavigationRail(
                     extended: constraints.maxWidth >= 750,
                     destinations: [
@@ -102,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Expanded(
                 child: Container(
-                  color: Theme.of(context).colorScheme.tertiary, // Keep background distinct
+                  color: Theme.of(context).colorScheme.background, // Light blue main background
                   child: page,
                 ),
               ),

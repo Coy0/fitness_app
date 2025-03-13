@@ -18,12 +18,11 @@ Future<void> databaseTest() async {
     database = await openDatabase(
       '$databasesPath/my_database.db',
       version: 1,
-      onCreate: (db, version) async {  // ✅ Ensure async for insert operation
+      onCreate: (db, version) async {
         await db.execute(
           'CREATE TABLE accounts(id INTEGER PRIMARY KEY, email TEXT, username TEXT, password TEXT)',
         );
 
-        // ✅ Insert a default account when the database is first created
         await db.insert('accounts', {
           'email': 'test@example.com',
           'username': 'testuser',
