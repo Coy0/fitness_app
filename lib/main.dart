@@ -14,7 +14,7 @@ void main() {
   if (Platform.isWindows) {
     databaseFactory = databaseFactoryFfi;
   }
-
+  
   runApp(MyApp());
 }
 
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Expanded(
                 child: Container(
-                  color: Theme.of(context).colorScheme.background, // Light blue main background
+                  color: Theme.of(context).colorScheme.surface, // Light blue main background
                   child: page,
                 ),
               ),
