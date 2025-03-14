@@ -1,12 +1,16 @@
 import 'package:first_mobile_app_test1/main_application/firstpage.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'dart:io';
 import 'package:first_mobile_app_test1/main_application/login.dart';
 import 'package:first_mobile_app_test1/main_application/databasepage.dart';
+import 'package:first_mobile_app_test1/database_tests/Database.dart';
+import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
 
-void main() {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   sqfliteFfiInit();
@@ -14,7 +18,15 @@ void main() {
   if (Platform.isWindows) {
     databaseFactory = databaseFactoryFfi;
   }
-  
+
+  database= await openDatabase(
+  // Set the path to the database. Note: Using the `join` function from the
+  // `path` package is best practice to ensure the path is correctly
+  // constructed for each platform.
+  join(await getDatabasesPath(), 'my_database.db'),
+);
+
+ runApp(DatabasePage());
   runApp(MyApp());
 }
 
@@ -61,6 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = FirstPage();
       case 2:
+        page = ChangeImageTest();
+      case 3:
         page = DatabasePage();
       default:
         throw UnimplementedError('$selectedIndex is not implemented');
@@ -84,6 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       NavigationRailDestination(
                         icon: Icon(Icons.zoom_out_map),
                         label: Text('Opening page'),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.image),
+                        label: Text('Display input'),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.data_array),

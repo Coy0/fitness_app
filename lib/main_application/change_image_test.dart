@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class FirstPage extends StatefulWidget {
+class ChangeImageTest extends StatefulWidget {
   @override
-  // ignore: library_private_types_in_public_api
+  
   _TestLoginState createState() => _TestLoginState();
 }
 
 /// This creates a controler for the username and password text fields
 /// to allow for the text to be stored and displayed on the screen
-class _TestLoginState extends State<FirstPage> { 
+class _TestLoginState extends State<ChangeImageTest> { 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 

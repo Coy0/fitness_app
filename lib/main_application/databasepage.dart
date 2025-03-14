@@ -14,13 +14,17 @@ class _DatabasePageState extends State<DatabasePage> {
 
   @override
   void initState() {
-    super.initState();
-    _accountsFuture = fetchAccounts(); // Fetch accounts when page loads
+    super.initState(); 
+        _accountsFuture = fetchAccounts(); // Fetch accounts when page loads 
+  
+
   }
 
   Future<List<Account>> fetchAccounts() async {
-    List<Map<String, dynamic>> maps = await database.query('accounts');
-    return maps.map((map) => Account.fromMap(map)).toList();
+   
+         List<Map<String, dynamic>> maps = await database.query('accounts');
+        return maps.map((map) => Account.fromMap(map)).toList();
+   
   }
 
   @override

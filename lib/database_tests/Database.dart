@@ -4,8 +4,10 @@ import 'dart:async';
 import 'package:first_mobile_app_test1/database_tests/Account.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-late Database database;
+ late Database database;
+
 late List<Account> accounts;
+
 
 Future<void> databaseTest() async {
   try {
