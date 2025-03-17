@@ -28,3 +28,4 @@ doc/api/
 #ignore swift file
 macos\Flutter\GeneratedPluginRegistrant.swift
 macos/Flutter/GeneratedPluginRegistrant.swift
+.vscode/settings.json

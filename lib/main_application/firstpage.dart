@@ -15,17 +15,7 @@ class _TestLoginState extends State<FirstPage> {
   Widget build(BuildContext context) {
     
 
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20), 
-          child: Text(
-            "what the sus"
-          
-          ),
-        ),
-        
-      ],
+  
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
