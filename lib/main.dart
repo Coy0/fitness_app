@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'dart:io';
 import 'package:first_mobile_app_test1/main_application/login.dart';
-import 'package:first_mobile_app_test1/main_application/databasepage.dart';
+import 'package:first_mobile_app_test1/database_tests/database_page.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
 
@@ -18,7 +18,7 @@ void main() async {
   if (Platform.isWindows) {
     databaseFactory = databaseFactoryFfi;
   }
-
+  
   database= await openDatabase(
   // Set the path to the database. Note: Using the `join` function from the
   // `path` package is best practice to ensure the path is correctly
@@ -26,7 +26,7 @@ void main() async {
   join(await getDatabasesPath(), 'my_database.db'),
 );
 
- runApp(DatabasePage());
+ runApp(Database_Page());
   runApp(MyApp());
 }
 
@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         page = ChangeImageTest();
       case 3:
-        page = DatabasePage();
+        page = Database_Page();
       default:
         throw UnimplementedError('$selectedIndex is not implemented');
     }

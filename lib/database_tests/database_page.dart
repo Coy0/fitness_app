@@ -1,15 +1,15 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, camel_case_types
 
 import 'package:flutter/material.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/database_tests/Account.dart';
 
-class DatabasePage extends StatefulWidget {
+class Database_Page extends StatefulWidget {
   @override
   _DatabasePageState createState() => _DatabasePageState();
 }
 
-class _DatabasePageState extends State<DatabasePage> {
+class _DatabasePageState extends State<Database_Page> {
   late Future<List<Account>> _accountsFuture;
 
   @override
@@ -59,7 +59,8 @@ class _DatabasePageState extends State<DatabasePage> {
             child: Text("Add New Account"),
           ),
 
-          // Account list inside an expanded widget
+          SizedBox(height: 10),
+
           Expanded(
             child: FutureBuilder<List<Account>>(
               future: _accountsFuture,
