@@ -30,12 +30,6 @@ Future<void> databaseTest() async {
           'password': 'securepassword123',
         });
 
-        await db.insert('accounts', {
-          'email': 'newuser@example.com',
-          'username': 'newuser123',
-          'password': 'anotherpassword456',
-        });
-
         print("Inserted default accounts.");
       },
       onUpgrade: (db, oldVersion, newVersion) async {
