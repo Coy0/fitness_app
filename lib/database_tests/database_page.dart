@@ -11,6 +11,8 @@ class Database_Page extends StatefulWidget {
 
 class _DatabasePageState extends State<Database_Page> {
   late Future<List<Account>> _accountsFuture;
+  final TextEditingController _usernameController = TextEditingController();
+  String _username = ''; // This is the variable that stores the username
 
   @override
   void initState() {
@@ -25,41 +27,94 @@ class _DatabasePageState extends State<Database_Page> {
 
   // Function to add a new account and refresh the UI
   Future<void> addNewAccount() async {
-    await insertAccount('extrauser@example.com', 'extrauser', 'extraPass123');
+    await insertAccount('TestUser@test.com', 'TestUser', 'TestPass');
 
     setState(() {
       _accountsFuture = fetchAccounts(); // Refresh UI with new data
     });
   }
 
+  Future<void> deleteAccount(int id) async {
+    await database.delete('accounts', where: 'id = ?', whereArgs: [id]);
+
+    setState(() {
+      _accountsFuture = fetchAccounts(); // Refresh UI with new data
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Stored Accounts")),
-      body: Column(
+      body: Row(
         children: [
           // Logo at the top
-          Container(
-            width: 75,
-            height: 75,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/cat_wawa.jpg'), // Main Logo
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(200), // Makes the image a circle
-              border: Border.all(width: 2, color: Colors.black),
-            ),
-          ),
           SizedBox(height: 10), // Adds spacing
 
           // "Add Account" button
-          ElevatedButton(
-            onPressed: addNewAccount,
-            child: Text("Add New Account"),
-          ),
 
-          SizedBox(height: 10),
+          SizedBox(height: 10), // Adds spacing
+
+          Container(
+            // This is the container that holds the username and password text fields
+            width: 400,
+            height: 170,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(
+                  12), // Gives the container rounded edges
+            ),
+
+            child: Center(
+              child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // Centers the text fields
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 16), // Size of the text field
+                    child: TextField(
+                      controller:
+                          _usernameController, // Saves the username inside of a controller so that the username can be displayed
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Enter ID of Account to Delete',
+                      ),
+                    ),
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: addNewAccount,
+                        child: Text('Add New Account'),
+                      ),
+
+                      SizedBox(width: 10), // Adds spacing
+
+                      ElevatedButton(
+                        onPressed: () async {
+                          await deleteAccount(int.parse(_usernameController.text));
+
+                          setState(() {
+                            _accountsFuture = fetchAccounts(); // Refresh UI with new data
+                          });
+                        },
+                        child: Text("Delete Typed Account"),
+                      ),
+
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
 
           Expanded(
             child: FutureBuilder<List<Account>>(
@@ -79,7 +134,6 @@ class _DatabasePageState extends State<Database_Page> {
                   itemCount: accounts.length,
                   itemBuilder: (context, index) {
                     final account = accounts[index];
-
                     return Container(
                       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       padding: EdgeInsets.all(10),
@@ -105,6 +159,8 @@ class _DatabasePageState extends State<Database_Page> {
               },
             ),
           ),
+
+          SizedBox(height: 10), // Adds spacing
         ],
       ),
     );
