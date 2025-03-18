@@ -12,7 +12,6 @@ class Database_Page extends StatefulWidget {
 class _DatabasePageState extends State<Database_Page> {
   late Future<List<Account>> _accountsFuture;
   final TextEditingController _usernameController = TextEditingController();
-  String _username = ''; // This is the variable that stores the username
 
   @override
   void initState() {
@@ -26,8 +25,8 @@ class _DatabasePageState extends State<Database_Page> {
   }
 
   // Function to add a new account and refresh the UI
-  Future<void> addNewAccount() async {
-    await insertAccount('TestUser@test.com', 'TestUser', 'TestPass');
+  Future<void> addNewAccount(String emailInput, String usernameInput, String passwordInput) async {
+    await insertAccount(emailInput, usernameInput, passwordInput);
 
     setState(() {
       _accountsFuture = fetchAccounts(); // Refresh UI with new data
@@ -91,12 +90,11 @@ class _DatabasePageState extends State<Database_Page> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        onPressed: addNewAccount,
-                        child: Text('Add New Account'),
-                      ),
+                      // ElevatedButton(
+                      //   onPressed: addNewAccount,
+                      //   child: Text('Add New Account'),
+                      // ),
 
-                      SizedBox(width: 10), // Adds spacing
 
                       ElevatedButton(
                         onPressed: () async {
@@ -105,6 +103,7 @@ class _DatabasePageState extends State<Database_Page> {
                           setState(() {
                             _accountsFuture = fetchAccounts(); // Refresh UI with new data
                           });
+                          _usernameController.clear();
                         },
                         child: Text("Delete Typed Account"),
                       ),

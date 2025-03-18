@@ -8,7 +8,7 @@ import 'package:first_mobile_app_test1/main_application/login.dart';
 import 'package:first_mobile_app_test1/database_tests/database_page.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
-
+import 'package:first_mobile_app_test1/main_application/create_account.dart';
 
 
 void main() async {
@@ -72,10 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
       case 0:
         page = TestLogin();
       case 1:
-        page = FirstPage();
+        page = CreateAccount();
       case 2:
-        page = ChangeImageTest();
+        page = FirstPage();
       case 3:
+        page = ChangeImageTest();
+      case 4:
         page = Database_Page();
       default:
         throw UnimplementedError('$selectedIndex is not implemented');
@@ -91,10 +93,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Theme.of(context).colorScheme.surface, // Light blue NavigationRail
                   child: NavigationRail(
                     extended: constraints.maxWidth >= 750,
+                    groupAlignment: -1,
                     destinations: [
                       NavigationRailDestination(
                         icon: Icon(Icons.login),
                         label: Text('Login'),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.add),
+                        label: Text('Create Account'),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.zoom_out_map),
