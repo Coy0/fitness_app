@@ -78,6 +78,7 @@ class _DatabasePageState extends State<Database_Page> {
                     padding: EdgeInsets.symmetric(
                         horizontal: 25, vertical: 16), // Size of the text field
                     child: TextField(
+                      
                       controller:
                           _usernameController, // Saves the username inside of a controller so that the username can be displayed
                       decoration: InputDecoration(

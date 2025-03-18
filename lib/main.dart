@@ -10,6 +10,7 @@ import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
 
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -41,10 +42,10 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 0, 0, 0), // Light blue theme
+            seedColor: const Color.fromARGB(255, 255, 255, 255), // Light blue theme
             surface: const Color.fromARGB(255, 255, 255, 255), // Very light blue for backgrounds
           ),
-          primaryColor: const Color.fromARGB(255, 105, 111, 117), // Primary Color
+          primaryColor: const Color.fromARGB(255, 255, 255, 255), // Primary Color
           primaryColorLight: const Color.fromARGB(255, 173, 216, 230), // Lighter blue
           primaryColorDark: const Color.fromARGB(255, 20, 20, 20), // Dark Theme Color
         ),
@@ -119,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Expanded(
                 child: Container(
-                  color: Theme.of(context).colorScheme.surface, // Light blue main background
+                  color: Theme.of(context).colorScheme.onError, // Light blue main background
                   child: page,
                 ),
               ),
