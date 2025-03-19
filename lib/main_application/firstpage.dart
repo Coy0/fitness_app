@@ -9,8 +9,6 @@ class FirstPage extends StatefulWidget {
 /// This creates a controler for the username and password text fields
 /// to allow for the text to be stored and displayed on the screen
 class _TestLoginState extends State<FirstPage> { 
-  
-
   @override
   Widget build(BuildContext context) {
     

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/database_tests/Account.dart';
 
+import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
+
 class Database_Page extends StatefulWidget {
   @override
   _DatabasePageState createState() => _DatabasePageState();
@@ -12,7 +14,6 @@ class Database_Page extends StatefulWidget {
 class _DatabasePageState extends State<Database_Page> {
   late Future<List<Account>> _accountsFuture;
   final TextEditingController _usernameController = TextEditingController();
-  String _username = ''; // This is the variable that stores the username
 
   @override
   void initState() {
@@ -23,23 +24,6 @@ class _DatabasePageState extends State<Database_Page> {
   Future<List<Account>> fetchAccounts() async {
     List<Map<String, dynamic>> maps = await database.query('accounts');
     return maps.map((map) => Account.fromMap(map)).toList();
-  }
-
-  // Function to add a new account and refresh the UI
-  Future<void> addNewAccount() async {
-    await insertAccount('TestUser@test.com', 'TestUser', 'TestPass');
-
-    setState(() {
-      _accountsFuture = fetchAccounts(); // Refresh UI with new data
-    });
-  }
-
-  Future<void> deleteAccount(int id) async {
-    await database.delete('accounts', where: 'id = ?', whereArgs: [id]);
-
-    setState(() {
-      _accountsFuture = fetchAccounts(); // Refresh UI with new data
-    });
   }
 
 
@@ -78,6 +62,7 @@ class _DatabasePageState extends State<Database_Page> {
                     padding: EdgeInsets.symmetric(
                         horizontal: 25, vertical: 16), // Size of the text field
                     child: TextField(
+                      
                       controller:
                           _usernameController, // Saves the username inside of a controller so that the username can be displayed
                       decoration: InputDecoration(
@@ -90,12 +75,11 @@ class _DatabasePageState extends State<Database_Page> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        onPressed: addNewAccount,
-                        child: Text('Add New Account'),
-                      ),
+                      // ElevatedButton(
+                      //   onPressed: addNewAccount,
+                      //   child: Text('Add New Account'),
+                      // ),
 
-                      SizedBox(width: 10), // Adds spacing
 
                       ElevatedButton(
                         onPressed: () async {
@@ -104,6 +88,7 @@ class _DatabasePageState extends State<Database_Page> {
                           setState(() {
                             _accountsFuture = fetchAccounts(); // Refresh UI with new data
                           });
+                          _usernameController.clear();
                         },
                         child: Text("Delete Typed Account"),
                       ),
@@ -152,6 +137,7 @@ class _DatabasePageState extends State<Database_Page> {
                         title: Text(account.username),
                         subtitle: Text(account.email),
                         trailing: Text("ID: ${account.id}"),
+
                       ),
                     );
                   },

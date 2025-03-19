@@ -11,8 +11,6 @@ class TestLogin extends StatefulWidget {
 class _TestLoginState extends State<TestLogin> { 
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-
   String _username = ''; // This is the variable that stores the username
   String _password = ''; // This is the variable that stores the password
 

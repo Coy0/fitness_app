@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
+
 class ChangeImageTest extends StatefulWidget {
   @override
-  
+
   // ignore: library_private_types_in_public_api
   _TestLoginState createState() => _TestLoginState();
 }
 
 /// This creates a controler for the username and password text fields
 /// to allow for the text to be stored and displayed on the screen
-class _TestLoginState extends State<ChangeImageTest> { 
+class _TestLoginState extends State<ChangeImageTest> {
   final TextEditingController _imageController = TextEditingController();
-  
-  String _image = ''; // This is the variable that stores the username
+
+  String _image = ''; // Make this accessible across files
 
   @override
   Widget build(BuildContext context) {
@@ -21,43 +22,47 @@ class _TestLoginState extends State<ChangeImageTest> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                        ''), // Main Logo
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(10), // Makes the image a circle
-                  border: Border.all(
-                    width: 1,
-                  )
-                )
+            width: 300,
+            height: 300,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                    _image), // Replace with your actual image URL
+                fit: BoxFit.cover,
               ),
+              borderRadius:
+                  BorderRadius.circular(10), // Keeps the border radius
+              border: Border.all(
+                width: 1,
+              ),
+            ),
+          ),
 
-          SizedBox(height: 20), // Spacing  
+          SizedBox(height: 20), // Spacing
 
-          Container( // This is the container that holds the username and password text fields
+          Container(
+            // This is the container that holds the username and password text fields
             width: 350,
             height: 170,
             decoration: BoxDecoration(
               border: Border.all(
                 width: 1,
               ),
-              borderRadius: BorderRadius.circular(12), // Gives the container rounded edges
+              borderRadius: BorderRadius.circular(
+                  12), // Gives the container rounded edges
             ),
 
             child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, // Centers the text fields
+                mainAxisAlignment:
+                    MainAxisAlignment.center, // Centers the text fields
                 children: [
-
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 16), // Size of the text field
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 16), // Size of the text field
                     child: TextField(
-                      controller: _imageController, // Saves the password inside of a controller so that the password can be displayed
-                      obscureText: true, // Makes it so you can't see the password
+                      controller:
+                          _imageController, 
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Enter a image link',
@@ -68,8 +73,10 @@ class _TestLoginState extends State<ChangeImageTest> {
 
                   ElevatedButton(
                     onPressed: () {
-                      setState(() { // Sets the state of the username and password to the text that is inside of the text fields
+                      setState(() {
+                        // Sets the state of the username and password to the text that is inside of the text fields
                         _image = _imageController.text;
+                        _imageController.clear();
                       });
                     },
                     child: Text('Change image to input'),
