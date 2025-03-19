@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/database_tests/Account.dart';
 
+import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
+
 class Database_Page extends StatefulWidget {
   @override
   _DatabasePageState createState() => _DatabasePageState();
@@ -22,23 +24,6 @@ class _DatabasePageState extends State<Database_Page> {
   Future<List<Account>> fetchAccounts() async {
     List<Map<String, dynamic>> maps = await database.query('accounts');
     return maps.map((map) => Account.fromMap(map)).toList();
-  }
-
-  // Function to add a new account and refresh the UI
-  Future<void> addNewAccount(String emailInput, String usernameInput, String passwordInput) async {
-    await insertAccount(emailInput, usernameInput, passwordInput);
-
-    setState(() {
-      _accountsFuture = fetchAccounts(); // Refresh UI with new data
-    });
-  }
-
-  Future<void> deleteAccount(int id) async {
-    await database.delete('accounts', where: 'id = ?', whereArgs: [id]);
-
-    setState(() {
-      _accountsFuture = fetchAccounts(); // Refresh UI with new data
-    });
   }
 
 
@@ -152,6 +137,7 @@ class _DatabasePageState extends State<Database_Page> {
                         title: Text(account.username),
                         subtitle: Text(account.email),
                         trailing: Text("ID: ${account.id}"),
+
                       ),
                     );
                   },
