@@ -72,3 +72,15 @@ Future<void> insertAccount(String email, String username, String password) async
   
   print("Updated Accounts: $accounts");
 }
+// Function to insert a new account dynamically
+Future<void> getAccount( String username, String password) async {
+
+  // Fetch and print updated accounts
+  String whereStatement =  'username = "$username" AND password = "$password"';
+  print(whereStatement);
+  List<Map<String, dynamic>> maps = await database.query('accounts',where:whereStatement);
+  accounts = maps.map((map) => Account.fromMap(map)).toList();
+
+  
+  print("Updated Accounts: $accounts");
+}

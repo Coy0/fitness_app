@@ -116,7 +116,7 @@ class _DatabasePageState extends State<Database_Page> {
                       ),
                       child: ListTile( // This is the data that is being shown for each account that is listed inside of the boxes
                         title: Text(account.username),
-                        subtitle: Text(account.email),
+                        subtitle: Text(account.password),
                         trailing: Text("ID: ${account.id}"),
                       ),
                     );
