@@ -13,20 +13,18 @@ class Database_Page extends StatefulWidget {
 
 class _DatabasePageState extends State<Database_Page> {
   late Future<List<Account>> _accountsFuture;
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _idController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _accountsFuture = fetchAccounts(); // Fetch accounts when page loads
+    _accountsFuture = fetchAccounts(); // Loads accounts to start
   }
 
-  Future<List<Account>> fetchAccounts() async {
+  Future<List<Account>> fetchAccounts() async { // Loads the account map to be displayed
     List<Map<String, dynamic>> maps = await database.query('accounts');
     return maps.map((map) => Account.fromMap(map)).toList();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +32,6 @@ class _DatabasePageState extends State<Database_Page> {
       appBar: AppBar(title: Text("Stored Accounts")),
       body: Row(
         children: [
-          // Logo at the top
-          SizedBox(height: 10), // Adds spacing
-
-          // "Add Account" button
-
-          SizedBox(height: 10), // Adds spacing
-
           Container(
             // This is the container that holds the username and password text fields
             width: 400,
@@ -62,55 +53,45 @@ class _DatabasePageState extends State<Database_Page> {
                     padding: EdgeInsets.symmetric(
                         horizontal: 25, vertical: 16), // Size of the text field
                     child: TextField(
-                      
                       controller:
-                          _usernameController, // Saves the username inside of a controller so that the username can be displayed
+                          _idController, // Saves the username inside of a controller so that the username can be displayed
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Enter ID of Account to Delete',
                       ),
                     ),
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // ElevatedButton(
-                      //   onPressed: addNewAccount,
-                      //   child: Text('Add New Account'),
-                      // ),
-
-
                       ElevatedButton(
                         onPressed: () async {
-                          await deleteAccount(int.parse(_usernameController.text));
+                          await deleteAccount(int.parse(_idController.text)); // Allows the button to fully delete accounts once their ID is typed in
 
                           setState(() {
                             _accountsFuture = fetchAccounts(); // Refresh UI with new data
                           });
-                          _usernameController.clear();
+                          _idController.clear(); // Deletes typed data from the text box once everything runs
                         },
                         child: Text("Delete Typed Account"),
                       ),
-
                     ],
                   ),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 20),
-
+          
           Expanded(
             child: FutureBuilder<List<Account>>(
               future: _accountsFuture,
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
+                if (snapshot.connectionState == ConnectionState.waiting) { // Returns the state of if the account list has been loaded yet, showing a progress indicator before it loads
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text("Error: ${snapshot.error}"));
+                  return Center(child: Text("Error: ${snapshot.error}")); // Returns if the page has returned an error on attempting to load the 
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text("No accounts found."));
+                  return Center(child: Text("No accounts found.")); // Returns if the page has no data inside of it to
                 }
 
                 final accounts = snapshot.data!;
@@ -119,25 +100,24 @@ class _DatabasePageState extends State<Database_Page> {
                   itemCount: accounts.length,
                   itemBuilder: (context, index) {
                     final account = accounts[index];
-                    return Container(
+                    return Container( // This is the box that the accounts that are being shown are stored in
                       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
+                        boxShadow: [ // Gives the boxes shown a little depth by adding a shadow around it
                           BoxShadow(
-                            color: Colors.black26,
+                            color: const Color.fromARGB(66, 0, 0, 0),
                             blurRadius: 4,
-                            offset: Offset(2, 2),
+                            offset: Offset(2, 2), // Puts the shadow a little down right
                           ),
                         ],
                       ),
-                      child: ListTile(
+                      child: ListTile( // This is the data that is being shown for each account that is listed inside of the boxes
                         title: Text(account.username),
                         subtitle: Text(account.email),
                         trailing: Text("ID: ${account.id}"),
-
                       ),
                     );
                   },
@@ -145,8 +125,6 @@ class _DatabasePageState extends State<Database_Page> {
               },
             ),
           ),
-
-          SizedBox(height: 10), // Adds spacing
         ],
       ),
     );
