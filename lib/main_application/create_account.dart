@@ -103,25 +103,6 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
             ),
           ),
-
-          SizedBox(height: 20), // Spacing
-          Container(
-            width: 350,
-            padding: EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              children: [
-                Text('Email: $_email'), // Displays the email
-                Text('Username: $_username'), // Displays the username
-                Text('Password: $_password'), // Displays the password
-              ],
-            ),
-          )
         ],
       ),
     );
