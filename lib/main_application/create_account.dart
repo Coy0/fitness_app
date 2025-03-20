@@ -3,6 +3,7 @@ import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
 
 class CreateAccount extends StatefulWidget {
   @override
+  // ignore: library_private_types_in_public_api
   _CreateAccountState createState() => _CreateAccountState();
 }
 
