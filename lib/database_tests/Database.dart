@@ -2,10 +2,10 @@
 import 'dart:async';
 import 'package:first_mobile_app_test1/database_tests/Account.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:path/path.dart'; // Import path package
 
 late Database database;
-late List<Account> accounts;
-
+late List<Account> accounts = []; // Initialize accounts
 
 Future<void> databaseTest() async {
   try {
@@ -15,9 +15,11 @@ Future<void> databaseTest() async {
     var databasesPath = await getDatabasesPath();
     print("Database Path: $databasesPath");
 
+    String path = join(databasesPath, 'my_database.db'); // Correct path handling
+
     database = await openDatabase(
-      '$databasesPath/my_database.db',
-      version: 2, // Increase version to trigger onUpgrade
+      path,
+      version: 2, // Ensure correct version
       onCreate: (db, version) async {
         await db.execute(
           'CREATE TABLE accounts(id INTEGER PRIMARY KEY, email TEXT, username TEXT, password TEXT)',
@@ -55,6 +57,7 @@ Future<void> databaseTest() async {
 
 // Function to insert a new account dynamically
 Future<void> insertAccount(String email, String username, String password) async {
+
   await database.insert('accounts', {
     'email': email,
     'username': username,

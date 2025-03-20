@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ChangeImageTest extends StatefulWidget {
   @override
 
@@ -8,12 +7,12 @@ class ChangeImageTest extends StatefulWidget {
   _TestLoginState createState() => _TestLoginState();
 }
 
-/// This creates a controler for the username and password text fields
-/// to allow for the text to be stored and displayed on the screen
+/// This creates a controler for the text field that allows the user to imput a image uri
 class _TestLoginState extends State<ChangeImageTest> {
   final TextEditingController _imageController = TextEditingController();
 
-  String _image = ''; // Make this accessible across files
+  String _image =
+      'https://lh3.googleusercontent.com/2gat55trm1IciUq_O7tQSQDeT_AIwX-lsIS6sZ5S5kjmiPKP8HBg_CPIbJi2R1uCSBiPs-2-s10NLckz=w544-h544-l90-rj'; // Make this accessible across files
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +25,7 @@ class _TestLoginState extends State<ChangeImageTest> {
             height: 300,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                    
-                    _image), // Replace with your actual image URL
+                image: NetworkImage(_image), // Replaces with inputted image URL
                 fit: BoxFit.cover,
               ),
               borderRadius:
@@ -42,7 +39,7 @@ class _TestLoginState extends State<ChangeImageTest> {
           SizedBox(height: 20), // Spacing
 
           Container(
-            // This is the container that holds the username and password text fields
+            // This is the container that holds
             width: 350,
             height: 170,
             decoration: BoxDecoration(
@@ -62,8 +59,7 @@ class _TestLoginState extends State<ChangeImageTest> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 25, vertical: 16), // Size of the text field
                     child: TextField(
-                      controller:
-                          _imageController, 
+                      controller: _imageController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Enter a image link',
@@ -75,8 +71,10 @@ class _TestLoginState extends State<ChangeImageTest> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        // Sets the state of the username and password to the text that is inside of the text fields
-                        _image = _imageController.text;
+                        // If the input is empty, keep the default image
+                        _image = _imageController.text.isEmpty
+                            ? 'https://lh3.googleusercontent.com/2gat55trm1IciUq_O7tQSQDeT_AIwX-lsIS6sZ5S5kjmiPKP8HBg_CPIbJi2R1uCSBiPs-2-s10NLckz=w544-h544-l90-rj'
+                            : _imageController.text;
                         _imageController.clear();
                       });
                     },
