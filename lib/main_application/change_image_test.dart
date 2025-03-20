@@ -71,8 +71,7 @@ class _TestLoginState extends State<ChangeImageTest> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        // If the input is empty, keep the default image
-                        _image = _imageController.text.isEmpty
+                        _image = _imageController.text.isEmpty // If there is no input inside of the text box, it sets the image to this default one
                             ? 'https://lh3.googleusercontent.com/2gat55trm1IciUq_O7tQSQDeT_AIwX-lsIS6sZ5S5kjmiPKP8HBg_CPIbJi2R1uCSBiPs-2-s10NLckz=w544-h544-l90-rj'
                             : _imageController.text;
                         _imageController.clear();
