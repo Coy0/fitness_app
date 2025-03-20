@@ -1,3 +1,4 @@
+import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:flutter/material.dart';
 
 class TestLogin extends StatefulWidget {
@@ -84,11 +85,13 @@ class _TestLoginState extends State<TestLogin> {
                   // Password
 
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+               
                       setState(() { // Sets the state of the username and password to the text that is inside of the text fields
                         _username = _usernameController.text;
                         _password = _passwordController.text;
                       });
+                       await getAccount(_usernameController.text, _passwordController.text);
                     },
                     child: Text('Sign in'),
                   ),

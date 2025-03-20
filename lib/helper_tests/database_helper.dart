@@ -8,3 +8,7 @@ Future<void> deleteAccount(int id) async { // This is the method that allows an 
     await database.delete('accounts', where: 'id = ?', whereArgs: [id]);
 }
 
+
+Future<void> getAccount(String usernameInput, String passwordInput) async { // This is the method that allows an account to be taken out of the database
+    await getAccount( usernameInput,  passwordInput);
+}
