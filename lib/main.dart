@@ -14,12 +14,12 @@ import 'package:first_mobile_app_test1/main_application/create_account.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  
   sqfliteFfiInit();
 
   if (Platform.isWindows) {
     databaseFactory = databaseFactoryFfi;
   }
-  
   database= await openDatabase(
   // Set the path to the database. Note: Using the `join` function from the
   // `path` package is best practice to ensure the path is correctly
@@ -28,7 +28,7 @@ void main() async {
 );
 
  runApp(Database_Page());
-  runApp(MyApp());
+ runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
