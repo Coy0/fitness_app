@@ -5,7 +5,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart'; // Import path package
 
 late Database database;
-late List<Account> accounts = []; // Initialize accounts
+List<Account> accounts = []; // Initialize accounts
 
 Future<void> databaseTest() async {
   try {
