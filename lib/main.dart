@@ -43,10 +43,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 255, 255, 255), // Light blue theme
-            surface: const Color.fromARGB(255, 255, 255, 255), // Very light blue for backgrounds
+            surface: const Color.fromARGB(255, 187, 183, 183), // Very light blue for backgrounds
           ),
           primaryColor: const Color.fromARGB(255, 255, 255, 255), // Primary Color
-          primaryColorLight: const Color.fromARGB(255, 173, 216, 230), // Lighter blue
+          primaryColorLight: const Color.fromARGB(255, 255, 255, 255), // Lighter blue
           primaryColorDark: const Color.fromARGB(255, 20, 20, 20), // Dark Theme Color
         ),
         home: MyHomePage(),
@@ -74,10 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = CreateAccount();
       case 2:
-        page = FirstPage();
-      case 3:
         page = ChangeImageTest();
-      case 4:
+      case 3:
         page = Database_Page();
       default:
         throw UnimplementedError('$selectedIndex is not implemented');
@@ -102,10 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       NavigationRailDestination(
                         icon: Icon(Icons.add),
                         label: Text('Create Account'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.zoom_out_map),
-                        label: Text('Opening page'),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.image),
