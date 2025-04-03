@@ -1,20 +1,18 @@
-import 'package:first_mobile_app_test1/main_application/firstpage.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'dart:io';
 import 'package:first_mobile_app_test1/main_application/login.dart';
-import 'package:first_mobile_app_test1/database_tests/database_page.dart';
+import 'package:first_mobile_app_test1/main_application/database_page.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
 import 'package:first_mobile_app_test1/main_application/create_account.dart';
-
+import 'package:first_mobile_app_test1/main_application/startup_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  
   sqfliteFfiInit();
 
   if (Platform.isWindows) {
@@ -43,7 +41,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 255, 255, 255), // Light blue theme
-            surface: const Color.fromARGB(255, 187, 183, 183), // Very light blue for backgrounds
+            surface: const Color.fromARGB(255, 255, 255, 255), // Very light blue for backgrounds
           ),
           primaryColor: const Color.fromARGB(255, 255, 255, 255), // Primary Color
           primaryColorLight: const Color.fromARGB(255, 255, 255, 255), // Lighter blue
@@ -70,12 +68,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = TestLogin();
+        page = StartupPage();
       case 1:
-        page = CreateAccount();
+        page = TestLogin();
       case 2:
-        page = ChangeImageTest();
+        page = CreateAccount();
       case 3:
+        page = ChangeImageTest();
+      case 4:
         page = Database_Page();
       default:
         throw UnimplementedError('$selectedIndex is not implemented');
@@ -93,6 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     extended: constraints.maxWidth >= 750,
                     groupAlignment: -1,
                     destinations: [
+                      NavigationRailDestination(
+                        icon: Icon(Icons.home),
+                        label: Text('Home'),
+                      ),
                       NavigationRailDestination(
                         icon: Icon(Icons.login),
                         label: Text('Login'),
