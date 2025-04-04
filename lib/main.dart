@@ -1,33 +1,28 @@
-import 'package:first_mobile_app_test1/main_application/firstpage.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'dart:io';
 import 'package:first_mobile_app_test1/main_application/login.dart';
-import 'package:first_mobile_app_test1/database_tests/database_page.dart';
+import 'package:first_mobile_app_test1/main_application/database_page.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
 import 'package:first_mobile_app_test1/main_application/create_account.dart';
-
+import 'package:first_mobile_app_test1/main_application/startup_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  
   sqfliteFfiInit();
 
   if (Platform.isWindows) {
     databaseFactory = databaseFactoryFfi;
   }
+  
   database= await openDatabase(
-  // Set the path to the database. Note: Using the `join` function from the
-  // `path` package is best practice to ensure the path is correctly
-  // constructed for each platform.
   join(await getDatabasesPath(), 'my_database.db'),
 );
 
- runApp(Database_Page());
  runApp(MyApp());
 }
 
@@ -46,7 +41,7 @@ class MyApp extends StatelessWidget {
             surface: const Color.fromARGB(255, 255, 255, 255), // Very light blue for backgrounds
           ),
           primaryColor: const Color.fromARGB(255, 255, 255, 255), // Primary Color
-          primaryColorLight: const Color.fromARGB(255, 173, 216, 230), // Lighter blue
+          primaryColorLight: const Color.fromARGB(255, 255, 255, 255), // Lighter blue
           primaryColorDark: const Color.fromARGB(255, 20, 20, 20), // Dark Theme Color
         ),
         home: MyHomePage(),
@@ -70,11 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = TestLogin();
+        page = StartupPage();
       case 1:
-        page = CreateAccount();
+        page = TestLogin();
       case 2:
-        page = FirstPage();
+        page = CreateAccount();
       case 3:
         page = ChangeImageTest();
       case 4:
@@ -96,16 +91,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     groupAlignment: -1,
                     destinations: [
                       NavigationRailDestination(
+                        icon: Icon(Icons.home),
+                        label: Text('Home'),
+                      ),
+                      NavigationRailDestination(
                         icon: Icon(Icons.login),
                         label: Text('Login'),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.add),
                         label: Text('Create Account'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.zoom_out_map),
-                        label: Text('Opening page'),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.image),

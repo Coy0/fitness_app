@@ -5,7 +5,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart'; // Import path package
 
 late Database database;
-late List<Account> accounts = []; // Initialize accounts
+List<Account> accounts = []; // Initialize accounts
 
 Future<void> databaseTest() async {
   try {
@@ -73,10 +73,10 @@ Future<void> insertAccount(String email, String username, String password) async
   print("Updated Accounts: $accounts");
 }
 // Function to insert a new account dynamically
-Future<void> getAccount( String username, String password) async {
+Future<void> getAccount( String email, String password) async {
 
   // Fetch and print updated accounts
-  String whereStatement =  'username = "$username" AND password = "$password"';
+  String whereStatement =  'email = "$email" AND password = "$password"';
   print(whereStatement);
   List<Map<String, dynamic>> maps = await database.query('accounts',where:whereStatement);
   accounts = maps.map((map) => Account.fromMap(map)).toList();
