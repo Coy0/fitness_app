@@ -24,7 +24,12 @@ class _DatabasePageState extends State<Database_Page> {
   Future<List<Account>> fetchAccounts() async {
     // Loads the account map to be displayed
     List<Map<String, dynamic>> maps = await database.query('accounts');
-    return maps.map((map) => Account.fromMap(map)).toList();
+    try {
+      return maps.map((map) => Account.fromMap(map)).toList();
+    } catch (e) {
+      print("Error in Account.fromMap: $e");
+      return []; // Return empty list if error occurs
+    }
   }
 
   @override

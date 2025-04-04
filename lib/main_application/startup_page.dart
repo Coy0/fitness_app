@@ -58,7 +58,7 @@ class _StartupState extends State<StartupPage> {
                   ElevatedButton(
                     onPressed: () {
                     },
-                    child: Text("I'd suggest not to press this button"),
+                    child: Text("Example Button"),
                   ),
                 ],
               ),

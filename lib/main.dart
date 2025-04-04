@@ -18,14 +18,11 @@ void main() async {
   if (Platform.isWindows) {
     databaseFactory = databaseFactoryFfi;
   }
+  
   database= await openDatabase(
-  // Set the path to the database. Note: Using the `join` function from the
-  // `path` package is best practice to ensure the path is correctly
-  // constructed for each platform.
   join(await getDatabasesPath(), 'my_database.db'),
 );
 
- runApp(Database_Page());
  runApp(MyApp());
 }
 

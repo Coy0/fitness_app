@@ -12,8 +12,6 @@ class TestLogin extends StatefulWidget {
 class _TestLoginState extends State<TestLogin> { 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String _email = ''; // This is the variable that stores the email
-  String _password = ''; // This is the variable that stores the password
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +87,6 @@ class _TestLoginState extends State<TestLogin> {
                     onPressed: () async {
                
                       setState(() { // Sets the state of the email and password to the text that is inside of the text fields
-                        _email = _emailController.text;
-                        _password = _passwordController.text;
                       });
                        getAccount(_emailController.text, _passwordController.text);
                     },
