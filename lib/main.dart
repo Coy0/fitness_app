@@ -9,8 +9,7 @@ import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
 import 'package:first_mobile_app_test1/main_application/create_account.dart';
 import 'package:first_mobile_app_test1/main_application/startup_page.dart';
-import 'package:first_mobile_app_test1/main_application/workout_page.dart';
-
+import 'package:first_mobile_app_test1/helper_tests/PageLearner.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 4:
         page = Database_Page();
       case 5:
-        page = WorkoutPage();
+        page = LearnerPage();
       default:
         page = Center(
           child:
@@ -118,7 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.fitness_center_sharp),
-                         label: Text('Workout'))
+                        label: Text('Workout'),
+                      ),
                     ],
                     selectedIndex: selectedIndex,
                     onDestinationSelected: (value) {
