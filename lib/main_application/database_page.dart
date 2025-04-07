@@ -8,7 +8,7 @@ import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
 
 class Database_Page extends StatefulWidget {
   @override
-  _DatabasePageState createState() => _DatabasePageState();
+  State<Database_Page> createState() => _DatabasePageState();
 }
 
 class _DatabasePageState extends State<Database_Page> {

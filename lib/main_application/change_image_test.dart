@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 class ChangeImageTest extends StatefulWidget {
   @override
-
-  // ignore: library_private_types_in_public_api
-  _TestLoginState createState() => _TestLoginState();
+  State<ChangeImageTest> createState() => _TestLoginState();
 }
 
 /// This creates a controler for the text field that allows the user to imput a image uri

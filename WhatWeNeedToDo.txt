@@ -19,7 +19,4 @@ Make a ability to view previously logged workouts and newly added ones
 
 
 
-
-
-
 _________________________________________________________________________________________________________________
