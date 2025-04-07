@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 
-class ProfilePicture extends StatefulWidget {
+class LearnerPage extends StatefulWidget {
   @override
-  State<ProfilePicture> createState() => _ProfilePictureState();
+  State<LearnerPage> createState() => _LearnerPageState();
 }
 
-class _ProfilePictureState extends State<ProfilePicture> {
+class _LearnerPageState extends State<LearnerPage> {
  @override
   Widget build(BuildContext context) {
     return Center(

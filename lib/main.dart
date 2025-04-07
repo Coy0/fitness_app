@@ -3,12 +3,13 @@ import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'dart:io';
-import 'package:first_mobile_app_test1/main_application/login.dart';
+import 'package:first_mobile_app_test1/main_application/login_page.dart';
 import 'package:first_mobile_app_test1/main_application/database_page.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
 import 'package:first_mobile_app_test1/main_application/create_account.dart';
 import 'package:first_mobile_app_test1/main_application/startup_page.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,6 @@ void main() async {
   database= await openDatabase(
   join(await getDatabasesPath(), 'my_database.db'),
 );
-
  runApp(MyApp());
 }
 
@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'Namer App',
+        
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(255, 255, 255, 255), // Light blue theme
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
           ),
           primaryColor: const Color.fromARGB(255, 255, 255, 255), // Primary Color
           primaryColorLight: const Color.fromARGB(255, 255, 255, 255), // Lighter blue
-          primaryColorDark: const Color.fromARGB(255, 20, 20, 20), // Dark Theme Color
+          primaryColorDark: const Color.fromARGB(255, 253, 253, 253), // Dark Theme Color
         ),
         home: MyHomePage(),
       ),
@@ -59,7 +60,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     Widget page;
@@ -75,7 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
       case 4:
         page = Database_Page();
       default:
-        throw UnimplementedError('$selectedIndex is not implemented');
+        page = Center(
+          child:
+          Text("Invalid Arrival - Selected page was page $selectedIndex") //This is the page that you arrive at if none of the above pages are selected
+        );
     }
 
     return LayoutBuilder(
