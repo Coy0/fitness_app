@@ -9,6 +9,7 @@ import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
 import 'package:first_mobile_app_test1/main_application/create_account.dart';
 import 'package:first_mobile_app_test1/main_application/startup_page.dart';
+import 'package:first_mobile_app_test1/main_application/workout_page.dart';
 
 
 void main() async {
@@ -74,6 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
         page = ChangeImageTest();
       case 4:
         page = Database_Page();
+      case 5:
+        page = WorkoutPage();
       default:
         page = Center(
           child:
@@ -113,6 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icon(Icons.data_array),
                         label: Text('Database'),
                       ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.fitness_center_sharp),
+                         label: Text('Workout'))
                     ],
                     selectedIndex: selectedIndex,
                     onDestinationSelected: (value) {
