@@ -1,3 +1,4 @@
+import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +20,11 @@ void main() async {
   if (Platform.isWindows) {
     databaseFactory = databaseFactoryFfi;
   }
-  
-  database= await openDatabase(
-  join(await getDatabasesPath(), 'my_database.db'),
-);
- runApp(MyApp());
+
+  database = await openDatabase(
+    join(await getDatabasesPath(), 'my_database.db'),
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -35,15 +36,19 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'Namer App',
-        
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 255, 255, 255), // Light blue theme
-            surface: const Color.fromARGB(255, 255, 255, 255), // Very light blue for backgrounds
+            seedColor:
+                const Color.fromARGB(255, 255, 255, 255), // Light blue theme
+            surface: const Color.fromARGB(
+                255, 255, 255, 255), // Very light blue for backgrounds
           ),
-          primaryColor: const Color.fromARGB(255, 255, 255, 255), // Primary Color
-          primaryColorLight: const Color.fromARGB(255, 255, 255, 255), // Lighter blue
-          primaryColorDark: const Color.fromARGB(255, 253, 253, 253), // Dark Theme Color
+          primaryColor:
+              const Color.fromARGB(255, 255, 255, 255), // Primary Color
+          primaryColorLight:
+              const Color.fromARGB(255, 255, 255, 255), // Lighter blue
+          primaryColorDark:
+              const Color.fromARGB(255, 253, 253, 253), // Dark Theme Color
         ),
         home: MyHomePage(),
       ),
@@ -51,18 +56,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyAppState extends ChangeNotifier {}
-
 class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     Widget page;
+    int selectedIndex = context.watch<MyAppState>().selectedIndex;
+
     switch (selectedIndex) {
       case 0:
         page = StartupPage();
@@ -78,9 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
         page = LearnerPage();
       default:
         page = Center(
-          child:
-          Text("Invalid Arrival - Selected page was page $selectedIndex") //This is the page that you arrive at if none of the above pages are selected
-        );
+            child: Text(
+                "Invalid Arrival - Selected page was page $context.read<MyAppState>().selectedIndex") //This is the page that you arrive at if none of the above pages are selected
+            );
     }
 
     return LayoutBuilder(
@@ -90,7 +94,9 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               SafeArea(
                 child: Container(
-                  color: Theme.of(context).colorScheme.surface, // Light blue NavigationRail
+                  color: Theme.of(context)
+                      .colorScheme
+                      .surface, // Light blue NavigationRail
                   child: NavigationRail(
                     extended: constraints.maxWidth >= 750,
                     groupAlignment: -1,
@@ -120,18 +126,21 @@ class _MyHomePageState extends State<MyHomePage> {
                         label: Text('Workout'),
                       ),
                     ],
-                    selectedIndex: selectedIndex,
+                    selectedIndex: context
+                        .watch<MyAppState>()
+                        .selectedIndex, // Watch for changes to selectedIndex
                     onDestinationSelected: (value) {
-                      setState(() {
-                        selectedIndex = value;
-                      });
+                      context.read<MyAppState>().selectedIndex =
+                          value; // Update the selected index
                     },
                   ),
                 ),
               ),
               Expanded(
                 child: Container(
-                  color: Theme.of(context).colorScheme.onError, // Light blue main background
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onError, // Light blue main background
                   child: page,
                 ),
               ),

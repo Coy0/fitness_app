@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:first_mobile_app_test1/main_application/login_page.dart';
+import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
+import 'package:provider/provider.dart';
 
 
 class StartupPage extends StatefulWidget {
@@ -50,13 +51,9 @@ class _StartupState extends State<StartupPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      // This is the button that will take the user to the login page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TestLogin(), // Push the LoginPage
-                        ),
-                      );
+                       // Changes the selected index to 1 to go to the login page
+                         var cart = context.read<MyAppState>();
+                        cart.selectedIndex = 1; // Changes the selected index to 1 to go to the login page
                     },
                     child: Text("Go to Login Page"), // Button text
                   ),
