@@ -17,6 +17,7 @@ dependencies:
   path: ^1.9.1
   sqflite_common_ffi: ^2.3.5
   ffi: ^2.0.0
+  email_validator: ^2.0.1
   
 dev_dependencies:
   flutter_test:
@@ -27,3 +28,4 @@ flutter:
   uses-material-design: true
   assets: 
     - assets/cat_wawa.jpg
+    - assets/Blank.png

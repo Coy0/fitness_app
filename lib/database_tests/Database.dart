@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'package:first_mobile_app_test1/database_tests/Account.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:path/path.dart'; // Import path package
+import 'package:path/path.dart';
 
 late Database database;
 List<Account> accounts = []; // Initialize accounts
@@ -35,14 +35,13 @@ Future<void> databaseTest() async {
         print("Inserted default accounts.");
       },
       onUpgrade: (db, oldVersion, newVersion) async {
-        // Insert a new account when upgrading
-        await db.insert('accounts', {
-          'email': 'upgradeduser@example.com',
-          'username': 'upgradeduser',
-          'password': 'upgradepassword789',
-        });
-        print("Inserted new account during upgrade.");
-      },
+        if (oldVersion < 2) { // Check if this is an upgrade to version 2
+          await db.execute('ALTER TABLE accounts ADD COLUMN customData TEXT');
+          await db.execute('ALTER TABLE accounts ADD COLUMN customNameData TEXT');
+      print("Added custom data columns during upgrade.");
+  }
+}
+
     );
 
     // Fetch accounts from the database
@@ -83,4 +82,19 @@ Future<void> getAccount( String email, String password) async {
 
   
   print("Updated Accounts: $accounts");
+}
+
+Future<bool> checkIfEmailExists (String email) async {
+  String whereStatement =  'email = "$email"';
+  print(whereStatement);
+  List<Map<String, dynamic>> maps = await database.query('accounts',where:whereStatement);
+  accounts = maps.map((map) => Account.fromMap(map)).toList();
+  
+  if (accounts.isNotEmpty) {
+    print("Email already exists: $email");
+    return true;
+  } else {
+    print("Email does not exist: $email");
+    return false;
+  }
 }

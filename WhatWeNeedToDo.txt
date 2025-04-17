@@ -1,9 +1,7 @@
 
 Coy -
 
-Make Sign-In work
-
-Only allow Valid emails and username for account creation
+Only allow Real emails and username for account creation
 
 Check for if username is a unique username or not in account creation
 
