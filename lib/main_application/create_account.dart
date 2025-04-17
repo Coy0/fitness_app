@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
+import 'package:email_validator/email_validator.dart';
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -93,6 +95,71 @@ class _CreateAccountState extends State<CreateAccount> {
                       _email = _emailController.text;
                       _username = _usernameController.text;
                       _password = _passwordController.text;
+                      if (_email.isEmpty ||
+                          _username.isEmpty ||
+                          _password.isEmpty) {
+                        // Check if any of the fields are empty
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Please fill in all fields.'),
+                          ),
+                        );
+                        return;
+                      } else if (await checkIfEmailExists(_email)) {
+                        // Check if the username already exists in the database
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'An account is already linked with this email.'),
+                          ),
+                        );
+                        return;
+                      } else if (_email == _username) {
+                        // Check if the email and username are the same
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Email and username cannot be the same.'),
+                          ),
+                        );
+                        return;
+                      } else if (_password == _username) {
+                        // Check if the password and username are the same
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Password and username cannot be the same.'),
+                          ),
+                        );
+                        return;
+                      } else if (_password.length < 6) {
+                        // Check if the password is less than 6 characters
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Password must be at least 6 characters.'),
+                          ),
+                        );
+                        return;
+                      } else if (_username.length < 3) {
+                        // Check if the username is less than 3 characters
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Username must be at least 3 characters.'),
+                          ),
+                        );
+                        return;
+                      } else if (!EmailValidator.validate(_email)) {
+                        // Check if the email is valid using the email_validator package
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Please enter a valid email address.'),
+                          ),
+                        );
+                        return;
+                      }
 
                       await addNewAccount(_email, _username, _password);
                     },

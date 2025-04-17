@@ -4,10 +4,11 @@ import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'dart:io';
+
 import 'package:first_mobile_app_test1/main_application/login_page.dart';
 import 'package:first_mobile_app_test1/main_application/database_page.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
-import 'package:first_mobile_app_test1/main_application/change_image_test.dart';
+import 'package:first_mobile_app_test1/main_application/custom_data_save.dart';
 import 'package:first_mobile_app_test1/main_application/create_account.dart';
 import 'package:first_mobile_app_test1/main_application/startup_page.dart';
 import 'package:first_mobile_app_test1/helper_tests/PageLearner.dart';
@@ -40,15 +41,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(
             seedColor:
                 const Color.fromARGB(255, 255, 255, 255), // Light blue theme
-            surface: const Color.fromARGB(
-                255, 255, 255, 255), // Very light blue for backgrounds
+            surface: const Color.fromARGB(255, 243, 240, 240), // Very light blue for backgrounds
           ),
-          primaryColor:
-              const Color.fromARGB(255, 255, 255, 255), // Primary Color
-          primaryColorLight:
-              const Color.fromARGB(255, 255, 255, 255), // Lighter blue
-          primaryColorDark:
-              const Color.fromARGB(255, 253, 253, 253), // Dark Theme Color
         ),
         home: MyHomePage(),
       ),
@@ -75,9 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         page = CreateAccount();
       case 3:
-        page = ChangeImageTest();
-      case 4:
         page = Database_Page();
+      case 4:
+        page = CustomDataSave();
       case 5:
         page = LearnerPage();
       default:
@@ -114,12 +108,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         label: Text('Create Account'),
                       ),
                       NavigationRailDestination(
-                        icon: Icon(Icons.image),
-                        label: Text('Display input'),
+                        icon: Icon(Icons.storage),
+                        label: Text('Database'),
                       ),
                       NavigationRailDestination(
-                        icon: Icon(Icons.data_array),
-                        label: Text('Database'),
+                        icon: Icon(Icons.data_object),
+                        label: Text('Custom Data Save'),
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.fitness_center_sharp),
