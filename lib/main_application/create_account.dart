@@ -25,28 +25,32 @@ class _CreateAccountState extends State<CreateAccount> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Create a [App_Name] Account',
+            'Sign up to [App Name]',
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
           ),
 
-          SizedBox(height: 50), // Spacing
+          SizedBox(height: 25), // Spacing
+
 
           Container(
-            // This is the container that holds the username and password text fields
-            width: 350,
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            width: 500,
             height: 350,
             decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(
-                  12), // Gives the container rounded edges
+              border: Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
+                )
+              ],
             ),
-
-            child: Center(
-              child: Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.center, // Centers the text fields
+            child: Column(
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -60,6 +64,8 @@ class _CreateAccountState extends State<CreateAccount> {
                       ),
                     ),
                   ),
+                  
+                  
 
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -166,8 +172,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     child: Text('Create Account'),
                   ),
                 ],
-              ),
-            ),
+            )
           ),
         ],
       ),
