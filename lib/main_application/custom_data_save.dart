@@ -20,7 +20,7 @@ class _CustomDataSaveState extends State<CustomDataSave> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
@@ -104,7 +104,7 @@ class _CustomDataSaveState extends State<CustomDataSave> {
               ),
             ),
           ),
-          SizedBox(width: 50),
+          SizedBox(height: 50),
           Container(
             width: 350,
             height: 230,
