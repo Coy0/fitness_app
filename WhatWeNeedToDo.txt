@@ -1,7 +1,7 @@
 
 Coy -
 
-Make it so that the program forces you to log in before anything else is shown
+Make it so that the program forces you to log in or create an account before anything else is shown
 
 _________________________________________________________________________________________________________________
 
