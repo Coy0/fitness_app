@@ -1,3 +1,4 @@
+import 'package:first_mobile_app_test1/main_application/workout_page.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = CreateAccount();
       case 2:
-        page = LearnerPage();
+        page = WorkoutPage();
      
       default:
         page = Center(
@@ -102,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icon(Icons.fitness_center_sharp),
                         label: Text('Workout'),
                       ),
+    
                       
                     ],
                     selectedIndex: context
