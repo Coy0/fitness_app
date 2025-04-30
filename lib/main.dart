@@ -1,5 +1,3 @@
-import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
-import 'package:first_mobile_app_test1/main_application/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +10,8 @@ import 'package:first_mobile_app_test1/main_application/custom_data_save.dart';
 import 'package:first_mobile_app_test1/main_application/create_account.dart';
 import 'package:first_mobile_app_test1/main_application/startup_page.dart';
 import 'package:first_mobile_app_test1/helper_tests/PageLearner.dart';
+import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,13 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 1:
         page = CreateAccount();
       case 2:
-        page = Database_Page();
-      case 3:
-        page = CustomDataSave();
-      case 4:
         page = LearnerPage();
-        case 5:
-        page = TestLogin();
      
       default:
         page = Center(
@@ -100,27 +94,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icon(Icons.home),
                         label: Text('Home'),
                       ),
-                      
                       NavigationRailDestination(
                         icon: Icon(Icons.add),
                         label: Text('Create Account'),
                       ),
                       NavigationRailDestination(
-                        icon: Icon(Icons.storage),
-                        label: Text('Database'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.data_object),
-                        label: Text('Custom Data Save'),
-                      ),
-                      NavigationRailDestination(
                         icon: Icon(Icons.fitness_center_sharp),
                         label: Text('Workout'),
                       ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.person),
-                        label: Text('TESTTESTTESTTESTTESTTEST'),
-                      ),
+                      
                     ],
                     selectedIndex: context
                         .watch<MyAppState>()
