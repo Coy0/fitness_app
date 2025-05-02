@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:first_mobile_app_test1/helper_tests/database_helper.dart' as helper;
+import 'package:first_mobile_app_test1/helper_tests/database_helper.dart'
+    as helper;
 import 'package:first_mobile_app_test1/database_tests/Database.dart' as db;
+import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:provider/provider.dart';
 
 class StartupPage extends StatefulWidget {
   @override
   State<StartupPage> createState() => _StartupState();
 }
-
 
 class _StartupState extends State<StartupPage> {
   final TextEditingController _emailController = TextEditingController();
@@ -97,13 +98,12 @@ class _StartupState extends State<StartupPage> {
 
                   ElevatedButton(
                     onPressed: () async {
-                      String email = _emailController.text; // Gets the email from the text field
-                      String password = _passwordController.text; // Gets the password from the text field
-
-                      // Call the function to get the account from the database// This is where you would call the function to check if the email and password are correct
+                      String email = _emailController
+                          .text; // Gets the email from the text field
+                      String password = _passwordController
+                          .text; // Gets the password from the text field
 
                       if (email.isEmpty || password.isEmpty) {
-                        // Check if any of the fields are empty
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Please fill in all fields.'),
@@ -111,25 +111,34 @@ class _StartupState extends State<StartupPage> {
                         );
                         return;
                       } else {
-                        
                         await db.getAccount(email, password);
 
                         if (db.accounts.any((element) =>
                             element.email == email &&
                             element.password == password)) {
                           setState(() {
-                            
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Login Successful!"),
+                              ),
+                            );
+
+                            // Set the global user ID after a successful login
+                            loggedInUserId = db.accounts
+                                .firstWhere((element) =>
+                                    element.email == email &&
+                                    element.password == password)
+                                .id; // Assuming 'id' is the field in your Account model
+                                print("Logged in user ID: $loggedInUserId");
                           });
-                          
                         } else {
                           setState(() {
-                            
                             ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Login Unsuccessful. Please input a valid email and password.'),
-                          ),
-                        );
-                        return;
+                              SnackBar(
+                                content: Text(
+                                    'Login Unsuccessful. Please input a valid email and password.'),
+                              ),
+                            );
                           });
                           print("Login failed!");
                         }
