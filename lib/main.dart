@@ -72,7 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
         page = WorkoutPage();
       case 3: 
         page = TestRunner();
-     
+      case 4:
+        page = Database_Page(); // This is the page that you arrive at if none of the above pages are selected     
       default:
         page = Center(
             child: Text(
@@ -108,7 +109,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.traffic), 
-                        label: Text('Test'))
+                        label: Text('Test')
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.storage),
+                        label: Text('Database'),
+                      ),
     
                       
                     ],
