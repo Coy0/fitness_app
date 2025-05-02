@@ -1,4 +1,4 @@
-import 'package:first_mobile_app_test1/main_application/test.dart';
+
 import 'package:first_mobile_app_test1/main_application/workout_page.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -8,10 +8,10 @@ import 'dart:io';
 
 import 'package:first_mobile_app_test1/main_application/database_page.dart';
 import 'package:first_mobile_app_test1/database_tests/Database.dart';
-import 'package:first_mobile_app_test1/main_application/custom_data_save.dart';
+
 import 'package:first_mobile_app_test1/main_application/create_account.dart';
 import 'package:first_mobile_app_test1/main_application/startup_page.dart';
-import 'package:first_mobile_app_test1/helper_tests/PageLearner.dart';
+
 import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
 
 
@@ -70,9 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = CreateAccount();
       case 2:
         page = WorkoutPage();
-      case 3: 
-        page = TestRunner();
-      case 4:
+      case 3:
         page = Database_Page(); // This is the page that you arrive at if none of the above pages are selected     
       default:
         page = Center(
@@ -106,10 +104,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       NavigationRailDestination(
                         icon: Icon(Icons.fitness_center_sharp),
                         label: Text('Workout'),
-                      ),
-                      NavigationRailDestination(
-                        icon: Icon(Icons.traffic), 
-                        label: Text('Test')
                       ),
                       NavigationRailDestination(
                         icon: Icon(Icons.storage),

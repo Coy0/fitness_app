@@ -30,3 +30,44 @@ class MyAppState extends ChangeNotifier {
   }
   
 }
+
+// Fetch workouts for a specific accountId
+Future<List<Map<String, dynamic>>> getWorkouts(int accountId) async {
+  final db = await database;
+  final result = await db.query(
+    'workouts',
+    where: 'account_id = ?',
+    whereArgs: [accountId],
+  );
+  return result;
+}
+
+// Insert a new workout
+Future<void> insertWorkout(String workoutName, int accountId) async {
+  final db = await database;
+  await db.insert(
+    'workouts',
+    {'name': workoutName, 'account_id': accountId},
+  );
+}
+
+// Update workout name
+Future<void> updateWorkoutName(int workoutId, String newName) async {
+  final db = await database;
+  await db.update(
+    'workouts',
+    {'name': newName},
+    where: 'id = ?',
+    whereArgs: [workoutId],
+  );
+}
+
+// Delete a workout
+Future<void> deleteWorkout(int workoutId) async {
+  final db = await database;
+  await db.delete(
+    'workouts',
+    where: 'id = ?',
+    whereArgs: [workoutId],
+  );
+}
