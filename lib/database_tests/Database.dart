@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 
 late Database database;
 List<Account> accounts = []; // Initialize accounts
+int? loggedInUserId;
 
 Future<void> databaseTest() async {
   try {
