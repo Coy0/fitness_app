@@ -33,7 +33,7 @@ class MyAppState extends ChangeNotifier {
 
 // Fetch workouts for a specific accountId
 Future<List<Map<String, dynamic>>> getWorkouts(int accountId) async {
-  final db = await database;
+  final db = database;
   final result = await db.query(
     'workouts',
     where: 'account_id = ?',
