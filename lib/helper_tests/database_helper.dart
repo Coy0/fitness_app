@@ -34,7 +34,7 @@ class MyAppState extends ChangeNotifier {
 // Fetch workouts for a specific accountId
 Future<List<Map<String, dynamic>>> getWorkouts(int accountId) async {
   final db = database;
-  final result = await db.query(
+  final result = db.query(
     'workouts',
     where: 'account_id = ?',
     whereArgs: [accountId],
@@ -44,7 +44,7 @@ Future<List<Map<String, dynamic>>> getWorkouts(int accountId) async {
 
 // Insert a new workout
 Future<void> insertWorkout(String workoutName, int accountId) async {
-  final db = await database;
+  final db = database;
   await db.insert(
     'workouts',
     {'name': workoutName, 'account_id': accountId},
@@ -53,7 +53,7 @@ Future<void> insertWorkout(String workoutName, int accountId) async {
 
 // Update workout name
 Future<void> updateWorkoutName(int workoutId, String newName) async {
-  final db = await database;
+  final db = database;
   await db.update(
     'workouts',
     {'name': newName},
@@ -64,7 +64,7 @@ Future<void> updateWorkoutName(int workoutId, String newName) async {
 
 // Delete a workout
 Future<void> deleteWorkout(int workoutId) async {
-  final db = await database;
+  final db = database;
   await db.delete(
     'workouts',
     where: 'id = ?',
