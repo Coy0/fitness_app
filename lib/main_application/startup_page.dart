@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
-import 'package:first_mobile_app_test1/helper_tests/database_helper.dart'
+import '../helper_tests/database_helper.dart'
     as helper;
-import 'package:first_mobile_app_test1/database_tests/Database.dart' as db;
-import 'package:first_mobile_app_test1/database_tests/Database.dart';
+import '../database_tests/Database.dart' as db;
+import '../database_tests/Database.dart';
 import 'package:provider/provider.dart';
+import '../helper_tests/globals.dart';
 
 class StartupPage extends StatefulWidget {
   @override
@@ -13,6 +15,8 @@ class StartupPage extends StatefulWidget {
 class _StartupState extends State<StartupPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  
 
   String successfulLogin = '';
   // ignore: non_constant_identifier_names
@@ -130,7 +134,10 @@ class _StartupState extends State<StartupPage> {
                                     element.password == password)
                                 .id; // Assuming 'id' is the field in your Account model
                                 print("Logged in user ID: $loggedInUserId");
-                          });
+                            
+                            isLoggedIn = true; // Set the login status to true
+                            }
+                          );
                         } else {
                           setState(() {
                             ScaffoldMessenger.of(context).showSnackBar(

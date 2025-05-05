@@ -1,17 +1,18 @@
-import 'package:first_mobile_app_test1/main_application/test.dart';
-import 'package:first_mobile_app_test1/main_application/workout_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'dart:io';
 
-import 'package:first_mobile_app_test1/main_application/database_page.dart';
-import 'package:first_mobile_app_test1/database_tests/Database.dart';
-import 'package:first_mobile_app_test1/main_application/create_account.dart';
-import 'package:first_mobile_app_test1/main_application/startup_page.dart';
-import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
-
+import '../main_application/database_page.dart';
+import '../database_tests/Database.dart';
+import '../main_application/create_account.dart';
+import '../main_application/startup_page.dart';
+import '../helper_tests/database_helper.dart';
+import '../main_application/test.dart';
+import '../main_application/workout_page.dart';
+// import '../helper_tests/globals.dart'; -- This import is not needed yet, as no implimentation for it is done yet
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

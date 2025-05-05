@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:first_mobile_app_test1/database_tests/Database.dart';
-import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
 
 class TestRunner extends StatefulWidget {
   @override
