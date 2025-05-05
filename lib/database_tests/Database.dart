@@ -99,3 +99,20 @@ Future<bool> checkIfEmailExists (String email) async {
     return false;
   }
 }
+
+
+Future<void> initDatabase() async {
+  sqfliteFfiInit(); // Only needed for desktop/testing environments
+
+  final dbFactory = databaseFactoryFfi;
+  database = await dbFactory.openDatabase(
+    'my_database.db',
+    options: OpenDatabaseOptions(
+      version: 1,
+      onCreate: (db, version) async {
+        // ✅ Add table creation SQL here
+      },
+    ),
+  );
+}
+

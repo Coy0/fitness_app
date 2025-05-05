@@ -1,202 +1,184 @@
-
 import 'package:flutter/material.dart';
-import 'package:first_mobile_app_test1/main_application/workout_detail_page.dart';
-import 'package:first_mobile_app_test1/helper_tests/database_helper.dart';
 
-class WorkoutPage extends StatefulWidget {
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
   @override
-  State<WorkoutPage> createState() => _WorkoutPageState();
-}
-
-class _WorkoutPageState extends State<WorkoutPage> {
-
-final TextEditingController workoutBox = TextEditingController();
-
- @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Manage Text Example',
-      home: HomeScreen(accountId: 2,),
+      home: WorkoutPage(),
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  final int accountId; // Declare accountId
-  HomeScreen({required this.accountId}); // Accept accountId as a parameter
-
+class WorkoutPage extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _WorkoutPageState createState() => _WorkoutPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _WorkoutPageState extends State<WorkoutPage> {
   List<Map<String, dynamic>> _workouts = [];
-  bool _isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    _loadWorkouts();
-  }
-
-  // Fetch workouts from the database for the specific accountId
-  Future<void> _loadWorkouts() async {
-    final workouts = await getWorkouts(widget.accountId);
-    setState(() {
-      _workouts = workouts;
-      _isLoading = false;
-    });
-  }
-
-  // Edit a workout's name
-  Future<void> _editWorkout(int workoutId, String newName) async {
-    try {
-      await updateWorkoutName(workoutId, newName); // Update in DB
-      _loadWorkouts(); // Reload workouts
-    } catch (e) {
-      print('Error updating workout: $e');
-    }
-  }
-
-  // Delete a workout
-  Future<void> _deleteWorkout(int workoutId) async {
-    try {
-      await deleteWorkout(workoutId); // Delete from DB
-      _loadWorkouts(); // Reload workouts
-    } catch (e) {
-      print('Error deleting workout: $e');
-    }
-  }
-
-  // Add a new workout/input
-  void _addInput(String input) {
+  // Add a new workout
+  void _addWorkout(String name) {
     setState(() {
       _workouts.add({
-        'id': DateTime.now().millisecondsSinceEpoch, // Simulated ID
-        'name': input,
+        'id': DateTime.now().millisecondsSinceEpoch, // Unique ID for each workout
+        'name': name,
+        'exercises': [] // Empty list for exercises
       });
     });
-    insertWorkout(input, widget.accountId);  // Pass accountId when inserting
+  }
+
+  // Edit workout name
+  void _editWorkout(int id, String newName) {
+    setState(() {
+      final workout = _workouts.firstWhere((workout) => workout['id'] == id);
+      workout['name'] = newName;
+    });
+  }
+
+  // Delete workout with confirmation
+  void _deleteWorkout(int id) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: Text('Do you want to delete this workout?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _workouts.removeWhere((workout) => workout['id'] == id);
+              });
+              Navigator.of(context).pop();
+            },
+            child: Text('Yes'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('No'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Navigate to Add/Edit Workout screen
+  Future<void> _navigateToAddWorkout(BuildContext context, [String? initialName]) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddEditWorkoutScreen(initialName: initialName),
+      ),
+    );
+    if (result != null) {
+      if (initialName == null) {
+        _addWorkout(result); // Add new workout
+      } else {
+        // Edit existing workout
+        final workout = _workouts.firstWhere((workout) => workout['name'] == initialName);
+        _editWorkout(workout['id'], result);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Workout Screen'),
+        title: Text('Workouts'),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => InputScreen()),
-              );
-              if (result != null) {
-                _addInput(result); // Add input
-              }
-            },
+            onPressed: () => _navigateToAddWorkout(context),
           ),
         ],
       ),
-      body: _isLoading
-          ? Center(child: CircularProgressIndicator())
-          : (_workouts.isEmpty
-              ? Center(child: Text('No workouts yet. Tap + to add one!'))
-              : ListView.builder(
-                  itemCount: _workouts.length,
-                  itemBuilder: (context, index) {
-                    final workout = _workouts[index];
-                    return Card(
-                      margin: EdgeInsets.all(8),
-                      child: ListTile(
-                        title: Text(workout['name']),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WorkoutDetailPage(
-                                workoutId: workout['id'],
-                                workoutName: workout['name'],
-                              ),
-                            ),
-                          );
-                        },
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () async {
-                                final editedText = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        InputScreen(initialText: workout['name']),
-                                  ),
-                                );
-                                if (editedText != null) {
-                                  _editWorkout(workout['id'], editedText);
-                                }
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () => _deleteWorkout(workout['id']),
-                            ),
-                          ],
+      body: _workouts.isEmpty
+          ? Center(child: Text('No workouts yet. Tap + to add one!'))
+          : ListView.builder(
+              itemCount: _workouts.length,
+              itemBuilder: (context, index) {
+                final workout = _workouts[index];
+                return Card(
+                  margin: EdgeInsets.all(8),
+                  child: ListTile(
+                    title: Text(workout['name']),
+                    onTap: () async {
+                      // Navigate to exercise details screen
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExerciseDetailsScreen(workout: workout),
                         ),
-                      ),
-                    );
-                  },
-                )),
+                      );
+                    },
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () => _navigateToAddWorkout(context, workout['name']),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () => _deleteWorkout(workout['id']),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 }
 
 
+class AddEditWorkoutScreen extends StatefulWidget {
+  final String? initialName;
 
-class InputScreen extends StatefulWidget {
-  final String? initialText;
-  InputScreen({this.initialText});
+  AddEditWorkoutScreen({this.initialName});
 
   @override
-  _InputScreenState createState() => _InputScreenState();
+  _AddEditWorkoutScreenState createState() => _AddEditWorkoutScreenState();
 }
 
-class _InputScreenState extends State<InputScreen> {
+class _AddEditWorkoutScreenState extends State<AddEditWorkoutScreen> {
   final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // If initialText is provided (for editing), set it in the controller
-    if (widget.initialText != null) {
-      _controller.text = widget.initialText!;
+    if (widget.initialName != null) {
+      _controller.text = widget.initialName!;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.initialText == null ? 'Add Item' : 'Edit Item')),
+      appBar: AppBar(title: Text(widget.initialName == null ? 'Add Workout' : 'Edit Workout')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: _controller,
-              decoration: InputDecoration(labelText: 'Enter something'),
+              decoration: InputDecoration(labelText: 'Workout Name'),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                final inputText = _controller.text.trim();
-                if (inputText.isNotEmpty) {
-                  Navigator.pop(context, inputText); // Return the input text
+                final workoutName = _controller.text.trim();
+                if (workoutName.isNotEmpty) {
+                  Navigator.pop(context, workoutName);
                 }
               },
-              child: Text(widget.initialText == null ? 'Add' : 'Save Changes'),
+              child: Text(widget.initialName == null ? 'Add Workout' : 'Save Changes'),
             ),
           ],
         ),
@@ -205,4 +187,118 @@ class _InputScreenState extends State<InputScreen> {
   }
 }
 
+class ExerciseDetailsScreen extends StatefulWidget {
+  final Map<String, dynamic> workout;
 
+  ExerciseDetailsScreen({required this.workout});
+
+  @override
+  _ExerciseDetailsScreenState createState() => _ExerciseDetailsScreenState();
+}
+
+class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
+  List<Map<String, dynamic>> _exercises = [];
+
+  // Add a new exercise
+  void _addExercise(String name, int reps, double weight) {
+    setState(() {
+      _exercises.add({
+        'id': DateTime.now().millisecondsSinceEpoch,
+        'name': name,
+        'reps': reps,
+        'weight': weight,
+      });
+    });
+  }
+
+  // Delete exercise with confirmation
+  void _deleteExercise(int id) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: Text('Do you want to delete this exercise?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _exercises.removeWhere((exercise) => exercise['id'] == id);
+              });
+              Navigator.of(context).pop();
+            },
+            child: Text('Yes'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('No'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.workout['name'])),
+      body: _exercises.isEmpty
+          ? Center(child: Text('No exercises yet. Tap + to add one!'))
+          : ListView.builder(
+              itemCount: _exercises.length,
+              itemBuilder: (context, index) {
+                final exercise = _exercises[index];
+                return Card(
+                  margin: EdgeInsets.all(8),
+                  child: ListTile(
+                    title: Text('${exercise['name']} - ${exercise['reps']} reps @ ${exercise['weight']} kg'),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => _deleteExercise(exercise['id']),
+                    ),
+                  ),
+                );
+              },
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await showDialog<Map<String, dynamic>>(
+            context: context,
+            builder: (context) {
+              final nameController = TextEditingController();
+              final repsController = TextEditingController();
+              final weightController = TextEditingController();
+              return AlertDialog(
+                title: Text('Add Exercise'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(controller: nameController, decoration: InputDecoration(labelText: 'Exercise Name')),
+                    TextField(controller: repsController, decoration: InputDecoration(labelText: 'Reps'), keyboardType: TextInputType.number),
+                    TextField(controller: weightController, decoration: InputDecoration(labelText: 'Weight'), keyboardType: TextInputType.number),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      final name = nameController.text;
+                      final reps = int.tryParse(repsController.text) ?? 0;
+                      final weight = double.tryParse(weightController.text) ?? 0.0;
+                      Navigator.pop(context, {'name': name, 'reps': reps, 'weight': weight});
+                    },
+                    child: Text('Add'),
+                  ),
+                ],
+              );
+            },
+          );
+          if (result != null) {
+            _addExercise(result['name'], result['reps'], result['weight']);
+          }
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}

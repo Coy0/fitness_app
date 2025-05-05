@@ -15,6 +15,7 @@ class _InputScreenState extends State<InputScreen> {
   @override
   void initState() {
     super.initState();
+    // If initialText is provided (for editing), set it in the controller
     if (widget.initialText != null) {
       _controller.text = widget.initialText!;
     }
@@ -35,12 +36,12 @@ class _InputScreenState extends State<InputScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                final inputText = _controller.text.trim();
-                if (inputText.isNotEmpty) {
-                  Navigator.pop(context, inputText); // Return input text
+                final workoutName = _controller.text.trim();
+                if (workoutName.isNotEmpty) {
+                  Navigator.pop(context, workoutName); // Return the input workout name
                 }
               },
-              child: Text(widget.initialText == null ? 'Add' : 'Save Changes'),
+              child: Text(widget.initialText == null ? 'Add Workout' : 'Save Changes'),
             ),
           ],
         ),
