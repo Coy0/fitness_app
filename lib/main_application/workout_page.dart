@@ -1,16 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: WorkoutPage(),
-    );
-  }
-}
-
 class WorkoutPage extends StatefulWidget {
   @override
   _WorkoutPageState createState() => _WorkoutPageState();
@@ -252,7 +241,7 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
                 return Card(
                   margin: EdgeInsets.all(8),
                   child: ListTile(
-                    title: Text('${exercise['name']} - ${exercise['reps']} reps @ ${exercise['weight']} kg'),
+                    title: Text('${exercise['name']} - ${exercise['reps']} reps @ ${exercise['weight']} lbs'),
                     trailing: IconButton(
                       icon: Icon(Icons.delete),
                       onPressed: () => _deleteExercise(exercise['id']),
