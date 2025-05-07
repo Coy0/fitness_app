@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:first_mobile_app_test1/database_tests/Database.dart';
+import 'package:first_mobile_app_test1/helper_tests/globals.dart';
 
 class WorkoutPage extends StatefulWidget {
   @override
@@ -6,7 +8,10 @@ class WorkoutPage extends StatefulWidget {
 }
 
 class _WorkoutPageState extends State<WorkoutPage> {
-  List<Map<String, dynamic>> _workouts = [];
+final _data = WorkoutData(); // Add this
+
+List<Map<String, dynamic>> get _workouts => _data.workouts;
+
 
   // Add a new workout
   void _addWorkout(String name) {
@@ -56,23 +61,29 @@ class _WorkoutPageState extends State<WorkoutPage> {
   }
 
   // Navigate to Add/Edit Workout screen
-  Future<void> _navigateToAddWorkout(BuildContext context, [String? initialName]) async {
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AddEditWorkoutScreen(initialName: initialName),
-      ),
-    );
-    if (result != null) {
-      if (initialName == null) {
-        _addWorkout(result); // Add new workout
-      } else {
-        // Edit existing workout
-        final workout = _workouts.firstWhere((workout) => workout['name'] == initialName);
-        _editWorkout(workout['id'], result);
-      }
+Future<void> _navigateToAddWorkout(BuildContext context, {int? workoutId}) async {
+  String? initialName;
+  if (workoutId != null) {
+    final workout = _workouts.firstWhere((w) => w['id'] == workoutId);
+    initialName = workout['name'];
+  }
+
+  final result = await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => AddEditWorkoutScreen(initialName: initialName),
+    ),
+  );
+
+  if (result != null) {
+    if (workoutId == null) {
+      _addWorkout(result); // Add new workout
+    } else {
+      _editWorkout(workoutId, result); // Edit by ID!
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +121,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       children: [
                         IconButton(
                           icon: Icon(Icons.edit),
-                          onPressed: () => _navigateToAddWorkout(context, workout['name']),
+                          onPressed: () => _navigateToAddWorkout(context, workoutId: workout['id']),
                         ),
                         IconButton(
                           icon: Icon(Icons.delete),
@@ -190,43 +201,55 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
 
   // Add a new exercise
   void _addExercise(String name, int reps, double weight) {
-    setState(() {
-      _exercises.add({
-        'id': DateTime.now().millisecondsSinceEpoch,
-        'name': name,
-        'reps': reps,
-        'weight': weight,
-      });
-    });
-  }
+  setState(() {
+    final newExercise = {
+      'id': DateTime.now().millisecondsSinceEpoch,
+      'name': name,
+      'reps': reps,
+      'weight': weight,
+    };
+    _exercises.add(newExercise);
+    widget.workout['exercises'].add(newExercise); // <-- this keeps the workout updated
+  });
+}
+
+
+  @override
+void initState() {
+  super.initState();
+  _exercises = List<Map<String, dynamic>>.from(widget.workout['exercises']);
+}
+
 
   // Delete exercise with confirmation
-  void _deleteExercise(int id) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Are you sure?'),
-        content: Text('Do you want to delete this exercise?'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              setState(() {
-                _exercises.removeWhere((exercise) => exercise['id'] == id);
-              });
-              Navigator.of(context).pop();
-            },
-            child: Text('Yes'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('No'),
-          ),
-        ],
-      ),
-    );
-  }
+ void _deleteExercise(int id) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('Are you sure?'),
+      content: Text('Do you want to delete this exercise?'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            setState(() {
+              _exercises.removeWhere((exercise) => exercise['id'] == id);
+              widget.workout['exercises'].removeWhere((exercise) => exercise['id'] == id);
+            });
+            Navigator.of(context).pop();
+          },
+          child: Text('Yes'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('No'),
+        ),
+      ],
+    ),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -291,3 +314,4 @@ class _ExerciseDetailsScreenState extends State<ExerciseDetailsScreen> {
     );
   }
 }
+

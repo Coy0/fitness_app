@@ -8,6 +8,9 @@ late Database database;
 List<Account> accounts = []; // Initialize accounts
 int? loggedInUserId;
 
+
+  final List<Map<String, dynamic>> workouts = [];
+
 Future<void> databaseTest() async {
   try {
     sqfliteFfiInit();
