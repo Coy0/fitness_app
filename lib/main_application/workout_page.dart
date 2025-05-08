@@ -95,6 +95,7 @@ Future<void> _navigateToAddWorkout(BuildContext context, {int? workoutId}) async
             icon: Icon(Icons.add),
             onPressed: () => _navigateToAddWorkout(context),
           ),
+          SizedBox(width: 20), // Add some space before the button
         ],
       ),
       body: _workouts.isEmpty
