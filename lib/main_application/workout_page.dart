@@ -1,5 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
-import 'package:first_mobile_app_test1/database_tests/Database.dart';
 import 'package:first_mobile_app_test1/helper_tests/globals.dart';
 
 class WorkoutPage extends StatefulWidget {
@@ -110,6 +111,7 @@ Future<void> _navigateToAddWorkout(BuildContext context, {int? workoutId}) async
                     title: Text(workout['name']),
                     onTap: () async {
                       // Navigate to exercise details screen
+                      // ignore: unused_local_variable
                       final result = await Navigator.push(
                         context,
                         MaterialPageRoute(
