@@ -43,7 +43,7 @@ class _CreateAccountState extends State<CreateAccount> {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
+                  color: Colors.grey.withAlpha((0.5 * 255).toInt()),
                   spreadRadius: 5,
                   blurRadius: 7,
                   offset: Offset(0, 3), // changes position of shadow
@@ -168,6 +168,12 @@ class _CreateAccountState extends State<CreateAccount> {
                       }
 
                       await addNewAccount(_email, _username, _password);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Account Successfully created!'),
+                          ),
+                        );
                     },
                     child: Text('Create Account'),
                   ),
